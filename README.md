@@ -623,7 +623,7 @@ Ele pode ser executado manualmente pelo workflow quando houver necessidade de av
 
 ## Evidências
 
-A execução gera relatório HTML do Playwright e artefatos no GitHub Actions.
+A execução gera um relatório HTML do Playwright e artefatos no GitHub Actions.
 
 Também foram utilizados durante a análise:
 
@@ -632,6 +632,31 @@ Também foram utilizados durante a análise:
 - relatório Allure;
 - resultado do K6;
 - anotações de performance no Playwright.
+
+As evidências abaixo foram registradas durante a execução dos testes e a investigação manual do fluxo.
+
+### Execução automatizada
+
+- Relatórios Allure:
+  - [Overview](./docs/evidences/allure/Allure-overview.png)
+  - [Behaviors](./docs/evidences/allure/Allure-behaviors.png)
+  - [Suites](./docs/evidences/allure/Allure-suites.png)
+  - [Graphs](./docs/evidences/allure/Allure-graphs.png)
+  - [Timeline](./docs/evidences/allure/Allure-timeline.png)
+
+### Vídeo da execução
+
+[▶️ Assistir à execução dos testes](./docs/evidences/video/ebac-shop-qa-challenge-evidencia.mov)
+
+### Evidências dos achados
+
+- [Performance do checkout](./docs/evidences/achados/01_checkout_performance_warning.png)
+- [Smoke test com K6](./docs/evidences/achados/02_k6_smoke_result.png)
+- [Resposta do checkout no Network](./docs/evidences/achados/03_network_checkout_response.png)
+- [Headers da requisição de checkout](./docs/evidences/achados/04_network_checkout_headers_http.png)
+- [Compra realizada sem autenticação](./docs/evidences/achados/05_guest_checkout_order_received.png)
+- [Validação de segurança do acesso ao pedido](./docs/evidences/achados/06_security_order_access_passed.png)
+- [Seleção de variação do produto](./docs/evidences/achados/07_product_variation_selected.png)
 
 ---
 
