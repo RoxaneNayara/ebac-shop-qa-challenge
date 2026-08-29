@@ -491,109 +491,248 @@ A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar 
 
 ---
 
-## Configuração do ambiente
+## Instalação e configuração do ambiente
 
-Clone o repositório:
+As instruções abaixo consideram todas as ferramentas utilizadas na solução. Para executar apenas os testes funcionais com Playwright, Java e K6 não são obrigatórios; eles são necessários para o relatório Allure e para o smoke test de performance, respectivamente.
+
+### Pré-requisitos
+
+Antes de executar o projeto, é necessário ter instalado:
+
+- Git;
+- Node.js 20 ou superior;
+- npm;
+- Java, para geração do relatório Allure;
+- K6, para execução do smoke test de performance.
+
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/RoxaneNayara/ebac-shop-qa-challenge.git
 ```
 
-Entre no projeto:
+Acesse a pasta do projeto:
 
 ```bash
 cd ebac-shop-qa-challenge
 ```
 
-Instale as dependências:
+### 2. Instalar as dependências
 
 ```bash
 npm ci
 ```
 
-Instale o navegador utilizado pelo Playwright:
+Esse comando instala as dependências definidas no `package-lock.json`, incluindo Playwright, TypeScript, Allure, dotenv e Prettier.
+
+### 3. Instalar o Chromium utilizado pelo Playwright
 
 ```bash
 npx playwright install chromium
 ```
 
-Crie o arquivo `.env` a partir do modelo:
+Em ambientes Linux ou CI, caso seja necessário instalar também as dependências do navegador:
+
+```bash
+npx playwright install --with-deps chromium
+```
+
+### 4. Configurar as variáveis de ambiente
+
+Crie o arquivo `.env` a partir do modelo disponível no projeto:
 
 ```bash
 cp .env.example .env
 ```
 
-Preencha as variáveis necessárias para o usuário utilizado nos testes.
+Preencha as variáveis com os dados do usuário utilizado nos testes.
 
-O arquivo `.env` não é versionado.
+> O arquivo `.env` contém dados sensíveis, não é versionado e está protegido pelo `.gitignore`.
 
 ---
 
-## Executando os testes
+## Execução dos testes Playwright
 
-### Suíte Playwright
+### Executar toda a suíte
 
 ```bash
 npm test
 ```
 
-### Execução com navegador visível
+ou:
 
 ```bash
-npm run test:headed
+npx playwright test --project=chromium
 ```
 
-### Modo UI
+Essa execução inclui o cenário exploratório de performance do checkout, que gera um pedido real.
 
-```bash
-npm run test:ui
-```
-
-### Apenas testes funcionais e de segurança
+### Executar a suíte funcional e de segurança
 
 ```bash
 npx playwright test --project=chromium --grep-invert @performance
 ```
 
-### Performance do checkout
+Essa é a suíte utilizada automaticamente no CI.
+
+### Executar com navegador visível
+
+```bash
+npm run test:headed
+```
+
+### Executar no modo UI
+
+```bash
+npm run test:ui
+```
+
+### Executar em modo debug
+
+```bash
+npm run test:debug
+```
+
+### Executar apenas o login
+
+```bash
+npm run test:login
+```
+
+### Executar apenas o fluxo de compra E2E
+
+```bash
+npm run test:purchase
+```
+
+### Executar apenas o teste de segurança
+
+```bash
+npx playwright test tests/security/order-access.spec.ts --project=chromium
+```
+
+### Executar apenas a performance exploratória do checkout
 
 ```bash
 npx playwright test tests/performance/checkout-performance.spec.ts --project=chromium
 ```
 
-### Smoke test K6
+> O limite de 5 segundos utilizado nesse cenário é uma referência exploratória e não um SLA oficial do produto. Por isso, ultrapassar essa referência gera um warning, mas não bloqueia a execução.
 
-É necessário ter o K6 instalado.
+---
 
-No macOS:
+## Relatórios
+
+### Relatório HTML do Playwright
+
+Após a execução dos testes:
+
+```bash
+npm run report
+```
+
+ou:
+
+```bash
+npx playwright show-report
+```
+
+### Relatório Allure
+
+O projeto utiliza `allure-playwright` e `allure-commandline`.
+
+O Allure Commandline depende de Java. No macOS com Homebrew:
+
+```bash
+brew install openjdk
+```
+
+Se o Java não for reconhecido pelo sistema, crie o vínculo recomendado pelo Homebrew:
+
+```bash
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
+
+Confirme a instalação:
+
+```bash
+java -version
+```
+
+Para gerar uma evidência limpa, remova resultados anteriores:
+
+```bash
+rm -rf allure-results allure-report
+```
+
+Execute os testes desejados e gere o relatório:
+
+```bash
+npx playwright test --project=chromium
+npm run allure:generate
+```
+
+Abra o relatório:
+
+```bash
+npm run allure:open
+```
+
+Também é possível gerar e abrir temporariamente o relatório diretamente a partir dos resultados:
+
+```bash
+npm run allure:serve
+```
+
+---
+
+## Smoke test com K6
+
+O K6 foi utilizado em um teste leve de performance nas páginas de produto e carrinho.
+
+### Instalação no macOS
 
 ```bash
 brew install k6
 ```
 
-Execução:
+Confirme a instalação:
+
+```bash
+k6 version
+```
+
+### Execução
 
 ```bash
 k6 run tests/k6/smoke-test.js
 ```
 
+O cenário utiliza carga leve e thresholds para acompanhar tempo de resposta e taxa de falhas. Ele não realiza checkout e não cria pedidos.
+
 ---
 
 ## Validações de qualidade do código
 
-Formatação:
+### Verificar formatação
 
 ```bash
 npx prettier --check .
 ```
 
-Type check:
+### Aplicar formatação
+
+```bash
+npx prettier --write .
+```
+
+### Validar TypeScript
 
 ```bash
 npx tsc --noEmit
 ```
 
-Listagem dos testes:
+### Listar os testes disponíveis
 
 ```bash
 npx playwright test --list
@@ -603,21 +742,28 @@ npx playwright test --list
 
 ## CI/CD
 
-O projeto utiliza GitHub Actions.
+O projeto utiliza GitHub Actions por meio do workflow:
 
-Em `push` e `pull_request` para a branch `main`, são executados:
+```text
+.github/workflows/playwright.yml
+```
+
+Em `push` e `pull_request` para a branch `main`, o pipeline executa:
 
 - instalação das dependências;
+- instalação do Chromium;
 - validação do Prettier;
 - validação do TypeScript;
 - testes funcionais;
 - fluxo E2E;
 - teste de segurança;
-- geração do relatório do Playwright.
+- upload do relatório do Playwright como artefato.
 
-O teste de performance do checkout fica separado da execução automática porque cria um pedido real.
+O cenário exploratório de performance do checkout não roda automaticamente em todo `push`, pois cada execução cria um pedido real.
 
-Ele pode ser executado manualmente pelo workflow quando houver necessidade de avaliação. Essa decisão evita gerar massa de pedidos desnecessária em cada commit.
+Ele é executado separadamente por meio de `workflow_dispatch`, evitando gerar massa de pedidos desnecessária no ambiente.
+
+As credenciais utilizadas no GitHub Actions devem ser cadastradas em **Repository Secrets** e nunca adicionadas ao código ou ao repositório.
 
 ---
 
