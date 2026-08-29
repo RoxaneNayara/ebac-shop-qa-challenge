@@ -1,5 +1,9 @@
 # EBAC Shop — Desafio Técnico de QA
 
+<p align="center">
+  <img src="./docs/banner-qa-challenge.png" alt="Banner do desafio técnico de QA da Aarin com a EBAC Shop" width="100%">
+</p>
+
 Este projeto foi desenvolvido a partir da jornada de compra da EBAC Shop, com foco não apenas em automatizar o fluxo solicitado, mas também em entender os principais riscos envolvidos na experiência de compra.
 
 Antes de iniciar a automação, percorri a aplicação manualmente algumas vezes. Essa exploração foi importante para entender o comportamento real da plataforma, observar particularidades do ambiente e decidir quais cenários realmente agregariam cobertura.
