@@ -105,4 +105,20 @@ export class OrdersPage {
 
     await expect(orderDetails).toContainText(paymentMethod);
   }
+
+  async getFirstOrderNumber(): Promise<string> {
+    const orderNumber = this.ordersTable
+      .locator(".woocommerce-orders-table__cell-order-number a")
+      .first();
+
+    await expect(orderNumber).toBeVisible();
+
+    const text = await orderNumber.textContent();
+
+    if (!text) {
+      throw new Error("Número do pedido não encontrado.");
+    }
+
+    return text.replace("#", "").trim();
+  }
 }

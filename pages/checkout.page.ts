@@ -13,7 +13,12 @@ export class CheckoutPage {
   private readonly postcode: Locator;
   private readonly phone: Locator;
   private readonly email: Locator;
+  private readonly orderComments: Locator;
+
+  private readonly bankTransfer: Locator;
+  private readonly cheque: Locator;
   private readonly cashOnDelivery: Locator;
+
   private readonly terms: Locator;
   private readonly placeOrderButton: Locator;
   private readonly checkoutOverlay: Locator;
@@ -29,6 +34,11 @@ export class CheckoutPage {
     this.postcode = page.locator("#billing_postcode");
     this.phone = page.locator("#billing_phone");
     this.email = page.locator("#billing_email");
+    this.orderComments = page.locator("#order_comments");
+
+    this.bankTransfer = page.locator("#payment_method_bacs");
+
+    this.cheque = page.locator("#payment_method_cheque");
 
     this.cashOnDelivery = page.locator("#payment_method_cod");
 
@@ -67,9 +77,22 @@ export class CheckoutPage {
     await this.waitForCheckoutReady();
   }
 
+  async selectBankTransfer(): Promise<void> {
+    await this.bankTransfer.check();
+    await expect(this.bankTransfer).toBeChecked();
+
+    await this.waitForCheckoutReady();
+  }
+
+  async selectCheque(): Promise<void> {
+    await this.cheque.check();
+    await expect(this.cheque).toBeChecked();
+
+    await this.waitForCheckoutReady();
+  }
+
   async selectCashOnDelivery(): Promise<void> {
     await this.cashOnDelivery.check();
-
     await expect(this.cashOnDelivery).toBeChecked();
 
     await this.waitForCheckoutReady();
@@ -77,8 +100,17 @@ export class CheckoutPage {
 
   async acceptTerms(): Promise<void> {
     await this.terms.check();
-
     await expect(this.terms).toBeChecked();
+  }
+
+  async addOrderNote(note: string): Promise<void> {
+    await this.orderComments.fill(note);
+  }
+
+  async submitOrder(): Promise<void> {
+    await this.waitForCheckoutReady();
+
+    await this.placeOrderButton.click();
   }
 
   async placeOrder(): Promise<void> {

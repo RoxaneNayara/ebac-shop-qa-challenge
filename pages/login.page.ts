@@ -6,7 +6,7 @@ export class LoginPage {
   private readonly loginButton: Locator;
   private readonly loggedUserArea: Locator;
 
-  constructor(page: Page) {
+  constructor(private readonly page: Page) {
     this.username = page.locator("#username");
     this.password = page.locator("#password");
     this.loginButton = page.locator('input[name="login"]');
@@ -27,5 +27,21 @@ export class LoginPage {
     });
 
     await expect(this.loggedUserArea).toContainText(/logout/i);
+  }
+
+  async logout(): Promise<void> {
+    const logoutLink = this.page.locator(
+      ".woocommerce-MyAccount-navigation-link--customer-logout a",
+    );
+
+    await expect(logoutLink).toBeVisible();
+
+    await logoutLink.click();
+  }
+
+  async expectLoggedOut(): Promise<void> {
+    await expect(this.loggedUserArea).not.toContainText(/logout/i);
+
+    await expect(this.loggedUserArea).not.toContainText(/welcome/i);
   }
 }

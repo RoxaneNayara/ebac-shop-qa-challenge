@@ -1,15 +1,15 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-import { LoginPage } from "../../pages/login.page";
-import { HomePage } from "../../pages/home.page";
-import { ProductPage } from "../../pages/product.page";
+import { registeredCustomer } from "../../data/customers";
+import { products } from "../../data/products";
+
 import { CartPage } from "../../pages/cart.page";
 import { CheckoutPage } from "../../pages/checkout.page";
+import { HomePage } from "../../pages/home.page";
+import { LoginPage } from "../../pages/login.page";
 import { OrderPage } from "../../pages/order.page";
 import { OrdersPage } from "../../pages/orders.page";
-
-import { products } from "../../data/products";
-import { registeredCustomer } from "../../data/customers";
+import { ProductPage } from "../../pages/product.page";
 
 const product = products.cassiaFunnelSweatshirt;
 
@@ -61,6 +61,7 @@ test.describe("Fluxo de compra E2E", () => {
 
     await test.step("Selecionar as variações e adicionar ao carrinho", async () => {
       await productPage.selectSize(product.size);
+
       await productPage.selectColor(product.color);
 
       await productPage.addToCart();
@@ -100,14 +101,25 @@ test.describe("Fluxo de compra E2E", () => {
       await cartPage.expectCartTotal(finalTotal);
     });
 
-    await test.step("Realizar o checkout", async () => {
+    await test.step("Realizar o checkout e validar a integração com o backend", async () => {
       await cartPage.proceedToCheckout();
 
       await checkoutPage.fillBillingDetails(registeredCustomer);
 
       await checkoutPage.selectCashOnDelivery();
       await checkoutPage.acceptTerms();
+
+      const checkoutResponsePromise = page.waitForResponse(
+        (response) =>
+          response.url().includes("wc-ajax=checkout") &&
+          response.request().method() === "POST",
+      );
+
       await checkoutPage.placeOrder();
+
+      const checkoutResponse = await checkoutResponsePromise;
+
+      expect(checkoutResponse.status()).toBe(200);
     });
 
     let orderNumber: string;
