@@ -1,0 +1,296 @@
+{
+  "uuid": "35cf030a-48a9-4a20-bb37-655d9d5bb14a",
+  "name": "deve concluir uma compra com pagamento na entrega",
+  "historyId": "ea6e5426495cfb3bedf1a3ae65804f7f:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "failed",
+  "statusDetails": {
+    "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/welcome|olá/i)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByText(/welcome|olá/i)\n",
+    "trace": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/welcome|olá/i)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByText(/welcome|olá/i)\n\n    at LoginPage.expectLoggedIn (/Users/roxanenayara/ebac-shop-qa-challenge/pages/login.page.ts:23:7)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:89:21"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Launch browser",
+              "start": 1787954070631,
+              "uuid": "040efbf3-c596-43dd-8d45-c08de1e7b322",
+              "stop": 1787954071126
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"browser\"",
+          "start": 1787954070628,
+          "uuid": "ebc267b0-8405-4905-b773-78fe0aa074a2",
+          "stop": 1787954071126
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create context",
+              "start": 1787954071131,
+              "uuid": "49acd8d1-d268-4cc3-b4b6-528d1540f9ef",
+              "stop": 1787954071141
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787954071129,
+          "uuid": "73ed64fa-6995-4d21-85d6-decee21316ca",
+          "stop": 1787954071142
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create page",
+              "start": 1787954071143,
+              "uuid": "3a7a9d2d-276e-4a36-b690-c0d43b3f72af",
+              "stop": 1787954071749
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787954071142,
+          "uuid": "debbd436-f207-4a8b-b88f-75b68f3d7220",
+          "stop": 1787954071749
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "Before Hooks",
+      "start": 1787954070619,
+      "uuid": "b0fd3e94-ab2b-45da-82aa-a82e29d57a32",
+      "stop": 1787954071749
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787954071752,
+      "name": "Navigate to \"/minha-conta/\"",
+      "uuid": "b31bfc2d-a1ff-44ce-800e-08e31910991a",
+      "stop": 1787954072453
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787954072458,
+      "name": "Fill \"luna.oliveira\" locator('#username')",
+      "uuid": "f88d7ac2-860f-4d5f-a324-d622c55b8300",
+      "stop": 1787954072498
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787954072499,
+      "name": "Fill \"Box255018*\" locator('#password')",
+      "uuid": "fb6168ac-48bd-453c-bec6-9ca557139463",
+      "stop": 1787954072557
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787954072559,
+      "name": "Click getByRole('button', { name: /login|entrar/i })",
+      "uuid": "12568346-d83f-4afd-8264-5f8f09fbcd9a",
+      "stop": 1787954073049
+    },
+    {
+      "status": "failed",
+      "statusDetails": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/welcome|olá/i)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByText(/welcome|olá/i)\n",
+        "trace": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/welcome|olá/i)\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByText(/welcome|olá/i)\n\n    at LoginPage.expectLoggedIn (/Users/roxanenayara/ebac-shop-qa-challenge/pages/login.page.ts:23:7)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:89:21"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787954073054,
+      "name": "Expect \"toBeVisible\" getByText(/welcome|olá/i)",
+      "uuid": "7710b8a3-8150-40bb-80c5-4efb133e9a31",
+      "stop": 1787954078059
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "source": "2a86d67f-09f6-4c6e-92c7-fd135c594303-attachment.png",
+          "type": "image/png"
+        }
+      ],
+      "parameters": [],
+      "start": 1787954078515,
+      "name": "screenshot",
+      "stop": 1787954078515
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "video",
+          "source": "ffb0eaf7-ef1a-4120-8108-f32657a7e33d-attachment.webm",
+          "type": "video/webm"
+        }
+      ],
+      "parameters": [],
+      "start": 1787954078539,
+      "name": "video",
+      "stop": 1787954078539
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "error-context",
+          "source": "8a1575ad-c460-43c4-a7c9-f3d912381f56-attachment.md",
+          "type": "text/markdown"
+        }
+      ],
+      "parameters": [],
+      "start": 1787954078559,
+      "name": "error-context",
+      "stop": 1787954078559
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787954078133,
+          "uuid": "bc463e95-08cb-4471-971e-b1917d5a5df9",
+          "stop": 1787954078133
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Close context",
+              "start": 1787954078138,
+              "uuid": "1a8b98de-3a58-4dce-9f53-1f98829c3028",
+              "stop": 1787954078376
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787954078134,
+          "uuid": "959cf582-b1bb-4c07-a126-1fd8f9b20e35",
+          "stop": 1787954078379
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "After Hooks",
+      "start": 1787954078060,
+      "uuid": "554aa0c4-4e65-40c3-9cff-39fbca863ea4",
+      "stop": 1787954078387
+    }
+  ],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "f35e8b7849192d2243c6c3af08d55d5d"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Checkout - pagamento na entrega"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-9825-worker-0" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Checkout - pagamento na entrega" }
+  ],
+  "links": [],
+  "start": 1787954070605,
+  "testCaseId": "ea6e5426495cfb3bedf1a3ae65804f7f",
+  "fullName": "checkout/purchase-flow.spec.ts:75:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Checkout - pagamento na entrega"
+  ],
+  "stop": 1787954077855
+}

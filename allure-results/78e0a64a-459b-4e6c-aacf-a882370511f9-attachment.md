@@ -1,0 +1,565 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: checkout/purchase-flow.spec.ts >> Fluxo de compra >> deve adicionar produto com variação ao carrinho e validar os valores
+- Location: tests/checkout/purchase-flow.spec.ts:12:7
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Cassia Funnel Sweatshirt', { exact: true })
+Expected: visible
+Error: strict mode violation: getByText('Cassia Funnel Sweatshirt', { exact: true }) resolved to 2 elements:
+    1) <a title="Cassia Funnel Sweatshirt" href="http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/">Cassia Funnel Sweatshirt</a> aka locator('#ui-id-3').getByRole('link', { name: 'Cassia Funnel Sweatshirt' })
+    2) <div>Cassia Funnel Sweatshirt</div> aka getByRole('status').getByText('Cassia Funnel Sweatshirt')
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByText('Cassia Funnel Sweatshirt', { exact: true })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=f7e1]:
+    - generic [ref=f7e2]:
+        - text:           
+        - banner [ref=f7e3]:
+            - generic [ref=f7e7]:
+                - generic [ref=f7e8]:
+                    - 'button " Cart : R$0,00 0" [expanded] [ref=f7e12] [cursor=pointer]':
+                        - generic [ref=f7e13]: 
+                        - generic [ref=f7e15]:
+                            - text: "Cart :"
+                            - generic [ref=f7e16]: R$0,00
+                        - generic [ref=f7e18]: "0"
+                    - link "0" [ref=f7e20] [cursor=pointer]:
+                        - /url: http://lojaebac.ebaconline.art.br/lista-de-desejos/
+                        - generic [ref=f7e21]: 
+                - list [ref=f7e23]:
+                    - listitem [ref=f7e24]:
+                        - link " Welcome luna.oliveira !" [ref=f7e25] [cursor=pointer]:
+                            - /url: http://lojaebac.ebaconline.art.br/minha-conta/
+                            - generic [ref=f7e26]: 
+                            - text: Welcome luna.oliveira !
+                    - listitem [ref=f7e27]:
+                        - link "Logout" [ref=f7e28] [cursor=pointer]:
+                            - /url: http://lojaebac.ebaconline.art.br/wp-login.php?action=logout&redirect_to=http%3A%2F%2Flojaebac.ebaconline.art.br&_wpnonce=10b9c369b3
+            - generic [ref=f7e32]:
+                - link [ref=f7e35] [cursor=pointer]:
+                    - /url: http://lojaebac.ebaconline.art.br/
+                    - img "EBAC – Shop" [ref=f7e36]
+                - generic [ref=f7e41]:
+                    - generic [ref=f7e43]:
+                        - combobox [ref=f7e44] [cursor=pointer]:
+                            - option "Selecione uma categoria" [selected]
+                            - option "Clothing"
+                            - option "Men"
+                            - option "Bottoms"
+                            - option "Pants|Clothing"
+                            - option "Promotions"
+                            - option "Pants|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Erin Recommends|Clothing"
+                            - option "New Luma Yoga Collection|Clothing"
+                            - option "Collections"
+                            - option "Erin Recommends|Clothing"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Shorts"
+                            - option "Shorts|Clothing"
+                            - option "Collections"
+                            - option "Erin Recommends|Clothing"
+                            - option "New Luma Yoga Collection|Clothing"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Promotions"
+                            - option "Men Sale|Clothing"
+                            - option "Collections"
+                            - option "Erin Recommends|Clothing"
+                            - option "Tops"
+                            - option "Hoodies & Sweatshirts"
+                            - option "Hoodies & Sweatshirts|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Jackets"
+                            - option "Jackets|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Tanks"
+                            - option "Tanks|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Tees"
+                            - option "Tees|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Women"
+                            - option "Tops"
+                            - option "Bras & Tanks"
+                            - option "Bras & Tanks|Clothing"
+                            - option "Collections"
+                            - option "New Luma Yoga Collection|Clothing"
+                            - option "Collections"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Promotions"
+                            - option "Women Sale|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Hoodies & Sweatshirts"
+                            - option "Hoodies & Sweatshirts|Clothing"
+                            - option "Collections"
+                            - option "Eco Friendly|Clothing"
+                            - option "Erin Recommends|Clothing"
+                            - option "New Luma Yoga Collection|Clothing"
+                            - option "Collections"
+                            - option "Erin Recommends|Clothing"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Promotions"
+                            - option "Women Sale|Clothing"
+                            - option "Collections"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Jackets"
+                            - option "Jackets|Clothing"
+                            - option "Collections"
+                            - option "New Luma Yoga Collection|Clothing"
+                            - option "Collections"
+                            - option "Erin Recommends|Clothing"
+                            - option "Performance Fabrics|Clothing"
+                            - option "Promotions"
+                            - option "Women Sale|Clothing"
+                            - option "Uncategorized"
+                        - paragraph [ref=f7e45]:
+                            - generic [ref=f7e46] [cursor=pointer]: Selecione uma categoria
+                    - textbox "Enter your search ..." [active] [ref=f7e49]: Cassia Funnel Sweatshirt
+                    - button "Search " [ref=f7e51] [cursor=pointer]:
+                        - text: Search
+                        - generic [ref=f7e52]: 
+                    - generic [ref=f7e53] [cursor=pointer]
+                    - list [ref=f7e54]:
+                        - listitem [ref=f7e55]:
+                            - link "Cassia Funnel Sweatshirt" [ref=f7e56] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/
+                            - generic [ref=f7e58]:
+                                - link "Cassia Funnel Sweatshirt" [ref=f7e60] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/
+                                - generic [ref=f7e61]: R$48,00
+                        - listitem [ref=f7e64]:
+                            - text: 1 result found with
+                            - generic [ref=f7e65]: '"Cassia Funnel Sweatshirt"'
+            - generic [ref=f7e67]:
+                - generic [ref=f7e69]:
+                    - heading " All Categories" [level=3] [ref=f7e70] [cursor=pointer]
+                    - text:     
+                - navigation [ref=f7e71]:
+                    - list [ref=f7e73]:
+                        - listitem [ref=f7e74]:
+                            - link "Home" [ref=f7e75] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/home/
+                        - listitem [ref=f7e77]:
+                            - link "Comprar" [ref=f7e78] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/
+                                - generic [ref=f7e79]: 
+                                - text: Comprar
+                        - listitem [ref=f7e80]:
+                            - link "Blog" [ref=f7e81] [cursor=pointer]:
+                                - /url: "#"
+                        - listitem [ref=f7e83]:
+                            - link "Categorias" [ref=f7e84] [cursor=pointer]:
+                                - /url: "#"
+                        - listitem [ref=f7e85]:
+                            - link "Mais vendidos" [ref=f7e86] [cursor=pointer]:
+                                - /url: "#"
+        - generic [ref=f7e87]:
+            - list [ref=f7e91]:
+                - listitem [ref=f7e92]:
+                    - link "Início" [ref=f7e93] [cursor=pointer]:
+                        - /url: http://lojaebac.ebaconline.art.br
+                - listitem [ref=f7e94]: / Produtos
+            - generic [ref=f7e96]:
+                - main [ref=f7e99]:
+                    - heading "Produtos" [level=1] [ref=f7e100]
+                    - list
+                    - generic [ref=f7e101]:
+                        - generic [ref=f7e102]:
+                            - button "" [ref=f7e103] [cursor=pointer]
+                            - button "" [ref=f7e105] [cursor=pointer]
+                        - combobox "Pedido da loja" [ref=f7e108]:
+                            - option "Ordenação padrão" [selected]
+                            - option "Ordenar por popularidade"
+                            - option "Ordenar por média de classificação"
+                            - option "Ordenar por mais recente"
+                            - 'option "Ordenar por preço: menor para maior"'
+                            - 'option "Ordenar por preço: maior para menor"'
+                    - generic [ref=f7e110]:
+                        - generic [ref=f7e112]:
+                            - figure [ref=f7e114]:
+                                - generic: "-33%"
+                                - link "[66665692] Produto Lgc2" [ref=f7e115] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/66665692-produto-lgc2/
+                                - generic [ref=f7e117]:
+                                    - generic:
+                                        - link "Adicionar “[66665692] Produto Lgc2” no seu carrinho":
+                                            - /url: "?add-to-cart=10988"
+                                            - generic: 
+                                            - text: Comprar
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=10988"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=10988&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e120]:
+                                - heading [level=3] [ref=f7e121]:
+                                    - link "[66665692] Produto Lgc2" [ref=f7e122] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/66665692-produto-lgc2/
+                                - generic [ref=f7e123]:
+                                    - generic [ref=f7e124]: sssss
+                                    - generic [ref=f7e125]: (0)
+                                - generic [ref=f7e126]:
+                                    - deletion [ref=f7e127]:
+                                        - generic [ref=f7e128]: R$1.500,00
+                                    - insertion [ref=f7e130]:
+                                        - generic [ref=f7e131]: R$1.000,00
+                        - generic [ref=f7e134]:
+                            - figure [ref=f7e136]:
+                                - generic: "-33%"
+                                - link "[73395368] Produto Lgc2" [ref=f7e137] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/73395368-produto-lgc2/
+                                - generic [ref=f7e139]:
+                                    - generic:
+                                        - link "Adicionar “[73395368] Produto Lgc2” no seu carrinho":
+                                            - /url: "?add-to-cart=10987"
+                                            - generic: 
+                                            - text: Comprar
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=10987"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=10987&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e142]:
+                                - heading [level=3] [ref=f7e143]:
+                                    - link "[73395368] Produto Lgc2" [ref=f7e144] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/73395368-produto-lgc2/
+                                - generic [ref=f7e145]:
+                                    - generic [ref=f7e146]: sssss
+                                    - generic [ref=f7e147]: (0)
+                                - generic [ref=f7e148]:
+                                    - deletion [ref=f7e149]:
+                                        - generic [ref=f7e150]: R$1.500,00
+                                    - insertion [ref=f7e152]:
+                                        - generic [ref=f7e153]: R$1.000,00
+                        - generic [ref=f7e156]:
+                            - figure [ref=f7e158]:
+                                - link "Abominable Hoodie" [ref=f7e159] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/abominable-hoodie/
+                                - generic [ref=f7e160]:
+                                    - generic:
+                                        - link "Selecione as opções para “Abominable Hoodie”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/abominable-hoodie/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=2559"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=2559&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e163]:
+                                - heading [level=3] [ref=f7e164]:
+                                    - link "Abominable Hoodie" [ref=f7e165] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/abominable-hoodie/
+                                - generic [ref=f7e166]:
+                                    - generic [ref=f7e167]: sssss
+                                    - generic [ref=f7e168]: (0)
+                                - generic [ref=f7e169]: R$69,00
+                        - generic [ref=f7e173]:
+                            - figure [ref=f7e175]:
+                                - link "Aero Daily Fitness Tee" [ref=f7e176] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/aero-daily-fitness-tee/
+                                - generic [ref=f7e177]:
+                                    - generic:
+                                        - link "Selecione as opções para “Aero Daily Fitness Tee”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/aero-daily-fitness-tee/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=3111"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=3111&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e180]:
+                                - heading [level=3] [ref=f7e181]:
+                                    - link "Aero Daily Fitness Tee" [ref=f7e182] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/aero-daily-fitness-tee/
+                                - generic [ref=f7e183]:
+                                    - generic [ref=f7e184]: sssss
+                                    - generic [ref=f7e185]: (0)
+                                - generic [ref=f7e186]: R$24,00
+                        - generic [ref=f7e190]:
+                            - figure [ref=f7e192]:
+                                - link "Aether Gym Pant" [ref=f7e193] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/aether-gym-pant/
+                                - generic [ref=f7e194]:
+                                    - generic:
+                                        - link "Selecione as opções para “Aether Gym Pant”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/aether-gym-pant/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=3073"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=3073&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e197]:
+                                - heading [level=3] [ref=f7e198]:
+                                    - link "Aether Gym Pant" [ref=f7e199] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/aether-gym-pant/
+                                - generic [ref=f7e200]:
+                                    - generic [ref=f7e201]: sssss
+                                    - generic [ref=f7e202]: (0)
+                                - generic [ref=f7e203]: R$74,00
+                        - generic [ref=f7e207]:
+                            - figure [ref=f7e209]:
+                                - link "Ajax Full-Zip Sweatshirt" [ref=f7e210] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/ajax-full-zip-sweatshirt/
+                                - generic [ref=f7e211]:
+                                    - generic:
+                                        - link "Selecione as opções para “Ajax Full-Zip Sweatshirt”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/ajax-full-zip-sweatshirt/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=2622"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=2622&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e214]:
+                                - heading [level=3] [ref=f7e215]:
+                                    - link "Ajax Full-Zip Sweatshirt" [ref=f7e216] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/ajax-full-zip-sweatshirt/
+                                - generic [ref=f7e217]:
+                                    - generic [ref=f7e218]: sssss
+                                    - generic [ref=f7e219]: (0)
+                                - generic [ref=f7e220]: R$69,00
+                        - generic [ref=f7e224]:
+                            - figure [ref=f7e226]:
+                                - link "Apollo Running Short" [ref=f7e227] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/apollo-running-short/
+                                - generic [ref=f7e228]:
+                                    - generic:
+                                        - link "Selecione as opções para “Apollo Running Short”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/apollo-running-short/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=3374"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=3374&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e231]:
+                                - heading [level=3] [ref=f7e232]:
+                                    - link "Apollo Running Short" [ref=f7e233] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/apollo-running-short/
+                                - generic [ref=f7e234]:
+                                    - generic [ref=f7e235]: sssss
+                                    - generic [ref=f7e236]: (0)
+                                - generic [ref=f7e237]: R$32,50
+                        - generic [ref=f7e241]:
+                            - figure [ref=f7e243]:
+                                - link "Arcadio Gym Short" [ref=f7e244] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/arcadio-gym-short/
+                                - generic [ref=f7e245]:
+                                    - generic:
+                                        - link "Selecione as opções para “Arcadio Gym Short”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/arcadio-gym-short/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=3528"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=3528&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e248]:
+                                - heading [level=3] [ref=f7e249]:
+                                    - link "Arcadio Gym Short" [ref=f7e250] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/arcadio-gym-short/
+                                - generic [ref=f7e251]:
+                                    - generic [ref=f7e252]: sssss
+                                    - generic [ref=f7e253]: (0)
+                                - generic [ref=f7e254]: R$20,00
+                        - generic [ref=f7e258]:
+                            - figure [ref=f7e260]:
+                                - link "Argus All-Weather Tank" [ref=f7e261] [cursor=pointer]:
+                                    - /url: http://lojaebac.ebaconline.art.br/product/argus-all-weather-tank/
+                                - generic [ref=f7e262]:
+                                    - generic:
+                                        - link "Selecione as opções para “Argus All-Weather Tank”":
+                                            - /url: http://lojaebac.ebaconline.art.br/product/argus-all-weather-tank/
+                                            - generic: 
+                                            - text: Ver opções
+                                    - link "":
+                                        - /url: "#"
+                                    - generic:
+                                        - generic:
+                                            - link "":
+                                                - /url: "?add_to_wishlist=3647"
+                                    - generic:
+                                        - link " ":
+                                            - /url: /produtos/?action=yith-woocompare-add-product&id=3647&_wpnonce=11853627c8
+                                            - generic: 
+                                            - text: 
+                            - generic [ref=f7e265]:
+                                - heading [level=3] [ref=f7e266]:
+                                    - link "Argus All-Weather Tank" [ref=f7e267] [cursor=pointer]:
+                                        - /url: http://lojaebac.ebaconline.art.br/product/argus-all-weather-tank/
+                                - generic [ref=f7e268]:
+                                    - generic [ref=f7e269]: sssss
+                                    - generic [ref=f7e270]: (0)
+                                - generic [ref=f7e271]: R$22,00
+                    - list [ref=f7e275]:
+                        - listitem [ref=f7e276]:
+                            - generic [ref=f7e277]: "1"
+                        - listitem [ref=f7e278]:
+                            - link "2" [ref=f7e279] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/2/
+                        - listitem [ref=f7e280]:
+                            - link "3" [ref=f7e281] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/3/
+                        - listitem [ref=f7e282]:
+                            - link "4" [ref=f7e283] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/4/
+                        - listitem [ref=f7e284]:
+                            - generic [ref=f7e285]: …
+                        - listitem [ref=f7e286]:
+                            - link "9" [ref=f7e287] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/9/
+                        - listitem [ref=f7e288]:
+                            - link "10" [ref=f7e289] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/10/
+                        - listitem [ref=f7e290]:
+                            - link "11" [ref=f7e291] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/11/
+                        - listitem [ref=f7e292]:
+                            - link "→" [ref=f7e293] [cursor=pointer]:
+                                - /url: http://lojaebac.ebaconline.art.br/produtos/page/2/
+                - generic [ref=f7e294]:
+                    - complementary
+        - contentinfo [ref=f7e295]:
+            - generic [ref=f7e299]:
+                - text: Copyright © 2021 - cena. All Rights Reserved. Powered by
+                - link "ThemBay" [ref=f7e300] [cursor=pointer]:
+                    - /url: //thembay.com
+        - text:     
+    - text: 
+    - status [ref=f7e303]:
+        - generic [ref=f7e304]: 1 result is available, use up and down arrow keys to navigate.
+```
+
+# Test source
+
+```ts
+  1  | import { expect, type Locator, type Page } from '@playwright/test';
+  2  |
+  3  | export class HomePage {
+  4  |   private readonly buyMenu: Locator;
+  5  |   private readonly searchInput: Locator;
+  6  |   private readonly searchButton: Locator;
+  7  |
+  8  |   constructor(private readonly page: Page) {
+  9  |     this.buyMenu = page.getByRole('link', {
+  10 |       name: /comprar/i,
+  11 |     });
+  12 |
+  13 |     this.searchInput = page
+  14 |       .locator('input.tbay-search[name="s"]:visible')
+  15 |       .first();
+  16 |
+  17 |     this.searchButton = page
+  18 |       .locator('button.button-search:visible')
+  19 |       .first();
+  20 |   }
+  21 |
+  22 |   async goToHome(): Promise<void> {
+  23 |     await this.page.goto('/');
+  24 |   }
+  25 |
+  26 |   async goToShop(): Promise<void> {
+  27 |     await this.buyMenu.click();
+  28 |
+  29 |     await expect(this.page).toHaveURL(/\/produtos\/?/);
+  30 |   }
+  31 |
+  32 |   async searchProduct(productName: string): Promise<void> {
+  33 |     await expect(this.searchInput).toBeVisible();
+  34 |
+  35 |     await this.searchInput.fill(productName);
+  36 |
+  37 |     await expect(
+  38 |       this.page.getByText(productName, { exact: true })
+> 39 |     ).toBeVisible();
+     |       ^ Error: expect(locator).toBeVisible() failed
+  40 |
+  41 |     await this.searchButton.click();
+  42 |   }
+  43 |
+  44 |   async expectProductPage(productSlug: string): Promise<void> {
+  45 |     await expect(this.page).toHaveURL(
+  46 |       new RegExp(`/product/${productSlug}/`)
+  47 |     );
+  48 |   }
+  49 | }
+```

@@ -1,0 +1,344 @@
+{
+  "uuid": "7896cb20-b668-4100-b37a-09e0df28e984",
+  "name": "deve adicionar produto com variação ao carrinho e validar os valores",
+  "historyId": "eff4ae655314edb0be73e6d9790ea810:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "failed",
+  "statusDetails": {
+    "message": "TimeoutError: locator.fill: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('form.form-ajax-search').first().locator('input.tbay-search[name=\"s\"]')\n    - locator resolved to <input name=\"s\" type=\"text\" placeholder=\"I’m searching for...\" class=\"tbay-search form-control input-sm\"/>\n    - fill(\"Cassia Funnel Sweatshirt\")\n  - attempting fill action\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n      - waiting 100ms\n    20 × waiting for element to be visible, enabled and editable\n       - element is not visible\n     - retrying fill action\n       - waiting 500ms\n",
+    "trace": "TimeoutError: locator.fill: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('form.form-ajax-search').first().locator('input.tbay-search[name=\"s\"]')\n    - locator resolved to <input name=\"s\" type=\"text\" placeholder=\"I’m searching for...\" class=\"tbay-search form-control input-sm\"/>\n    - fill(\"Cassia Funnel Sweatshirt\")\n  - attempting fill action\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n      - waiting 100ms\n    20 × waiting for element to be visible, enabled and editable\n       - element is not visible\n     - retrying fill action\n       - waiting 500ms\n\n    at HomePage.searchProduct (/Users/roxanenayara/ebac-shop-qa-challenge/pages/home.page.ts:25:28)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:31:20"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Launch browser",
+              "start": 1787958324286,
+              "uuid": "1a53fd48-6d22-42ca-b4ff-4f027611cfa7",
+              "stop": 1787958324757
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"browser\"",
+          "start": 1787958324283,
+          "uuid": "92a6b06b-4a51-4eb6-a035-ab4fbdf8ce69",
+          "stop": 1787958324758
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create context",
+              "start": 1787958324763,
+              "uuid": "54d3ef1a-75b9-4a6b-9a63-c670f65140b9",
+              "stop": 1787958324772
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787958324760,
+          "uuid": "a3e290df-219b-4615-b0e4-ee2c8bfe4bd7",
+          "stop": 1787958324773
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create page",
+              "start": 1787958324774,
+              "uuid": "cb472de4-6369-4dd2-80df-14720b47bb7d",
+              "stop": 1787958325378
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787958324773,
+          "uuid": "035427df-2b43-4c4b-9438-73b4d9d52532",
+          "stop": 1787958325378
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "Before Hooks",
+      "start": 1787958324274,
+      "uuid": "e8ec4530-7fbf-4a44-b622-b78849390e90",
+      "stop": 1787958325378
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958325380,
+      "name": "Navigate to \"/minha-conta/\"",
+      "uuid": "67dea0b5-cc1c-4f7f-a61b-4f6d8e0d16fc",
+      "stop": 1787958326241
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958326246,
+      "name": "Fill \"luna.oliveira\" locator('#username')",
+      "uuid": "275ddb1c-01be-4590-8022-620ad2948ffa",
+      "stop": 1787958326287
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958326288,
+      "name": "Fill \"Box255018*#\" locator('#password')",
+      "uuid": "0ce83b03-c615-4850-b6fa-f2b8aa765c24",
+      "stop": 1787958326338
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958326340,
+      "name": "Click locator('input[name=\"login\"]')",
+      "uuid": "fb57e51a-86f7-43e1-b40d-c9818330458f",
+      "stop": 1787958327580
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958327585,
+      "name": "Expect \"toBeVisible\" locator('#tbay-topbar')",
+      "uuid": "100e0576-e296-4404-af58-567c54694840",
+      "stop": 1787958327932
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958327934,
+      "name": "Expect \"toContainText\" locator('#tbay-topbar')",
+      "uuid": "c339916a-9ba1-4dfe-8eed-78a8eb35f18f",
+      "stop": 1787958327940
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958327941,
+      "name": "Expect \"toContainText\" locator('#tbay-topbar')",
+      "uuid": "27ae8710-160a-4015-9909-5b279eb86a9f",
+      "stop": 1787958327945
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958327948,
+      "name": "Navigate to \"/\"",
+      "uuid": "57f084df-ba7c-4e90-9fbb-309a9c8c09bc",
+      "stop": 1787958329105
+    },
+    {
+      "status": "failed",
+      "statusDetails": {
+        "message": "TimeoutError: locator.fill: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('form.form-ajax-search').first().locator('input.tbay-search[name=\"s\"]')\n    - locator resolved to <input name=\"s\" type=\"text\" placeholder=\"I’m searching for...\" class=\"tbay-search form-control input-sm\"/>\n    - fill(\"Cassia Funnel Sweatshirt\")\n  - attempting fill action\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n      - waiting 100ms\n    20 × waiting for element to be visible, enabled and editable\n       - element is not visible\n     - retrying fill action\n       - waiting 500ms\n",
+        "trace": "TimeoutError: locator.fill: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('form.form-ajax-search').first().locator('input.tbay-search[name=\"s\"]')\n    - locator resolved to <input name=\"s\" type=\"text\" placeholder=\"I’m searching for...\" class=\"tbay-search form-control input-sm\"/>\n    - fill(\"Cassia Funnel Sweatshirt\")\n  - attempting fill action\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n      - waiting 100ms\n    20 × waiting for element to be visible, enabled and editable\n       - element is not visible\n     - retrying fill action\n       - waiting 500ms\n\n    at HomePage.searchProduct (/Users/roxanenayara/ebac-shop-qa-challenge/pages/home.page.ts:25:28)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:31:20"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958329107,
+      "name": "Fill \"Cassia Funnel Sweatshirt\" locator('form.form-ajax-search').first().locator('input.tbay-search[name=\"s\"]')",
+      "uuid": "73b7feca-793c-43c8-b1c7-e8a9b695b7c2",
+      "stop": 1787958339112
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "source": "0151f082-4f7f-47db-b2e6-d8e889589223-attachment.png",
+          "type": "image/png"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958340030,
+      "name": "screenshot",
+      "stop": 1787958340030
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "video",
+          "source": "e27565f3-6f26-4054-aa5b-64baee55a1ac-attachment.webm",
+          "type": "video/webm"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958340055,
+      "name": "video",
+      "stop": 1787958340055
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "error-context",
+          "source": "0cebb69c-6154-4bf4-88c1-16a91c52f9da-attachment.md",
+          "type": "text/markdown"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958340076,
+      "name": "error-context",
+      "stop": 1787958340076
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787958339234,
+          "uuid": "44c418e5-3b56-47a9-acce-0299326bbd40",
+          "stop": 1787958339234
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Close context",
+              "start": 1787958339360,
+              "uuid": "a3484115-3314-458e-9c9c-8b39257dfb2c",
+              "stop": 1787958339841
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787958339234,
+          "uuid": "c14acb93-67a5-4888-a879-71bfa9e42a99",
+          "stop": 1787958339843
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "After Hooks",
+      "start": 1787958339113,
+      "uuid": "6fa2a0a7-c93d-442f-8906-7528472af823",
+      "stop": 1787958339851
+    }
+  ],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "cf67163f7358d951bafc693c07484a1c"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Fluxo de compra"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-13828-worker-0" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Fluxo de compra" }
+  ],
+  "links": [],
+  "start": 1787958324260,
+  "testCaseId": "eff4ae655314edb0be73e6d9790ea810",
+  "fullName": "checkout/purchase-flow.spec.ts:12:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Fluxo de compra"
+  ],
+  "stop": 1787958339343
+}

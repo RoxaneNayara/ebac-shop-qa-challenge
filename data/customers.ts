@@ -1,9 +1,10 @@
 export type Customer = {
   username: string;
   email: string;
+  password: string;
   firstName: string;
   lastName: string;
-  company?: string;
+  company: string;
   country: string;
   address: string;
   city: string;
@@ -12,18 +13,27 @@ export type Customer = {
   phone: string;
 };
 
-export const customers = {
-  registered: {
-    username: 'luna.oliveira',
-    email: 'luna.oliveira@gmail.com',
-    firstName: 'Luna',
-    lastName: 'Oliveira',
-    company: 'Hospital São Camilo Santana',
-    country: 'Brasil',
-    address: 'Rua Santo Anselmo, 62',
-    city: 'São Paulo',
-    state: 'São Paulo',
-    postcode: '02362130',
-    phone: '+5511998741582',
-  },
-} satisfies Record<string, Customer>;
+function getRequiredEnv(name: string): string {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Environment variable ${name} is required.`);
+  }
+
+  return value;
+}
+
+export const registeredCustomer: Customer = {
+  username: getRequiredEnv("TEST_USER_USERNAME"),
+  email: getRequiredEnv("TEST_USER_EMAIL"),
+  password: getRequiredEnv("TEST_USER_PASSWORD"),
+  firstName: getRequiredEnv("TEST_USER_FIRST_NAME"),
+  lastName: getRequiredEnv("TEST_USER_LAST_NAME"),
+  company: getRequiredEnv("TEST_USER_COMPANY"),
+  country: getRequiredEnv("TEST_USER_COUNTRY"),
+  address: getRequiredEnv("TEST_USER_ADDRESS"),
+  city: getRequiredEnv("TEST_USER_CITY"),
+  state: getRequiredEnv("TEST_USER_STATE"),
+  postcode: getRequiredEnv("TEST_USER_POSTCODE"),
+  phone: getRequiredEnv("TEST_USER_PHONE"),
+};

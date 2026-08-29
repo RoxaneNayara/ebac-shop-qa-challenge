@@ -1,0 +1,43 @@
+{
+  "uuid": "b584878d-3dda-4b89-b25e-d39c222fc31a",
+  "name": "deve atualizar a quantidade e recalcular os valores do carrinho",
+  "historyId": "ce069991bff0aa874b5da9a862075df2:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "skipped",
+  "statusDetails": {},
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "37ca5030518e8b4e0c748c5693df260c"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Fluxo de compra"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-17460-worker--1" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Fluxo de compra" }
+  ],
+  "links": [],
+  "start": 1787963125581,
+  "testCaseId": "ce069991bff0aa874b5da9a862075df2",
+  "fullName": "checkout/purchase-flow.spec.ts:72:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Fluxo de compra"
+  ],
+  "stop": 1787963125655
+}

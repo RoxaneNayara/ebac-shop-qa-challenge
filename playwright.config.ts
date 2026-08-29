@@ -1,29 +1,32 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({
+  path: path.resolve(__dirname, ".env"),
+});
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
 
-  fullyParallel: true,
+  fullyParallel: false,
 
   forbidOnly: !!process.env.CI,
 
   retries: process.env.CI ? 2 : 0,
 
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
 
-  reporter: [
-    ['html', { open: 'never' }],
-    ['allure-playwright'],
-  ],
+  reporter: [["html", { open: "never" }], ["allure-playwright"]],
 
   use: {
-    baseURL: 'http://lojaebac.ebaconline.art.br',
+    baseURL: "http://lojaebac.ebaconline.art.br",
 
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
 
-    screenshot: 'only-on-failure',
+    screenshot: "only-on-failure",
 
-    video: 'retain-on-failure',
+    video: "retain-on-failure",
 
     actionTimeout: 10_000,
 
@@ -32,12 +35,12 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
+      name: "chromium",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
       },
     },
   ],
 
-  outputDir: 'test-results',
+  outputDir: "test-results",
 });

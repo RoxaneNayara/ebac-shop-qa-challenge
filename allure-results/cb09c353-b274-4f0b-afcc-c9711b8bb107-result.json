@@ -1,0 +1,362 @@
+{
+  "uuid": "cb09c353-b274-4f0b-afcc-c9711b8bb107",
+  "name": "deve atualizar a quantidade e recalcular os valores do carrinho",
+  "historyId": "ce069991bff0aa874b5da9a862075df2:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "passed",
+  "statusDetails": {},
+  "stage": "finished",
+  "steps": [
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Launch browser",
+              "start": 1787962418029,
+              "uuid": "dc45b020-ed53-407e-8c13-4adcc599c846",
+              "stop": 1787962418707
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"browser\"",
+          "start": 1787962418026,
+          "uuid": "3c0bee24-1b04-45e6-9eac-ced4b00aebd4",
+          "stop": 1787962418708
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create context",
+              "start": 1787962418720,
+              "uuid": "4df93ac0-486c-4508-ba34-15faa63fbdd5",
+              "stop": 1787962418787
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787962418712,
+          "uuid": "cfe0616c-d02a-40ab-a340-62d2f7d7b4b1",
+          "stop": 1787962418796
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create page",
+              "start": 1787962418800,
+              "uuid": "97442665-9d54-4641-9b8c-505d038dd54c",
+              "stop": 1787962419749
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787962418797,
+          "uuid": "dabb3859-a199-4fb3-a602-bfbcb83419c1",
+          "stop": 1787962419749
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "Before Hooks",
+      "start": 1787962418016,
+      "uuid": "8bf7906b-aa7e-458d-bfb2-ce9d87786b31",
+      "stop": 1787962419749
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962419754,
+      "name": "Navigate to \"/product/cassia-funnel-sweatshirt/\"",
+      "uuid": "1bbaeb16-cf23-482b-8a9b-3118ffd3fa05",
+      "stop": 1787962421674
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962421713,
+      "name": "Select option locator('select[name=\"attribute_size\"]')",
+      "uuid": "e61d66fa-5529-4e25-9986-8530f1c51652",
+      "stop": 1787962422019
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962422086,
+      "name": "Expect \"toHaveValue\" locator('select[name=\"attribute_size\"]')",
+      "uuid": "d71f8b53-cb3d-429a-a9c3-8384d5023a98",
+      "stop": 1787962422134
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962422173,
+      "name": "Select option locator('select[name=\"attribute_color\"]')",
+      "uuid": "eccbed1b-9f4f-4ee2-86dc-6db85f1ba15a",
+      "stop": 1787962422504
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962422506,
+      "name": "Expect \"toHaveValue\" locator('select[name=\"attribute_color\"]')",
+      "uuid": "6fd484ec-87db-4931-a1cb-74c41a5809ca",
+      "stop": 1787962422536
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962422557,
+      "name": "Click getByRole('button', { name: 'Comprar' })",
+      "uuid": "8200960c-5f1a-4937-8489-ca7c3cb1a781",
+      "stop": 1787962423569
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962423582,
+      "name": "Navigate to \"/carrinho/\"",
+      "uuid": "b945198b-ace2-4d33-b6e5-cb7ddfe78ce6",
+      "stop": 1787962425303
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425309,
+      "name": "Click locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('input.plus')",
+      "uuid": "a1c972da-15f7-4d70-9085-345a7a76edec",
+      "stop": 1787962425443
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425444,
+      "name": "Expect \"toHaveValue\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('input.qty')",
+      "uuid": "d3217030-8283-433c-8675-f569a88cec64",
+      "stop": 1787962425451
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425452,
+      "name": "Expect \"toContainText\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('.product-name a')",
+      "uuid": "c20870f7-013d-4eb4-8188-55a339add884",
+      "stop": 1787962425457
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425458,
+      "name": "Expect \"toContainText\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('.product-price')",
+      "uuid": "f16ede98-6455-4ea5-8c46-07675ea31154",
+      "stop": 1787962425463
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425465,
+      "name": "Expect \"toHaveValue\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('input.qty')",
+      "uuid": "a54eb517-4df6-45d6-ae17-04ac5fe4a1b5",
+      "stop": 1787962425470
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962425470,
+      "name": "Expect \"toContainText\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('.product-subtotal')",
+      "uuid": "26880738-d615-4381-9d28-67407a9ef6ce",
+      "stop": 1787962426857
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962426861,
+      "name": "Expect \"toContainText\" locator('.cart-subtotal')",
+      "uuid": "c8be604b-109d-4a48-9254-892a77178789",
+      "stop": 1787962426867
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787962426868,
+      "name": "Expect \"toContainText\" locator('.order-total')",
+      "uuid": "fe100575-7fc6-4afd-bbf4-036a3addecd6",
+      "stop": 1787962426873
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787962426875,
+          "uuid": "f18171ce-9eaf-4d49-b62b-de4dc3cb396f",
+          "stop": 1787962426875
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Close context",
+              "start": 1787962427064,
+              "uuid": "3c555976-835a-489c-8048-6fa3c1b47d56",
+              "stop": 1787962427477
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787962426876,
+          "uuid": "2fc4ea97-47e6-46ad-bfee-8a0094ae71bb",
+          "stop": 1787962427478
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "After Hooks",
+      "start": 1787962426873,
+      "uuid": "ffa8014b-9c0e-4098-a695-25eb9c453335",
+      "stop": 1787962427515
+    }
+  ],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "37ca5030518e8b4e0c748c5693df260c"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Fluxo de compra"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-17002-worker-1" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Fluxo de compra" }
+  ],
+  "links": [],
+  "start": 1787962417995,
+  "testCaseId": "ce069991bff0aa874b5da9a862075df2",
+  "fullName": "checkout/purchase-flow.spec.ts:60:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Fluxo de compra"
+  ],
+  "stop": 1787962426763
+}

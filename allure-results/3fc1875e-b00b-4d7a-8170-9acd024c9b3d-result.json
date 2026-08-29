@@ -1,0 +1,392 @@
+{
+  "uuid": "3fc1875e-b00b-4d7a-8170-9acd024c9b3d",
+  "name": "deve adicionar produto com variação ao carrinho e validar os valores",
+  "historyId": "eff4ae655314edb0be73e6d9790ea810:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "failed",
+  "statusDetails": {
+    "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\nExpected: visible\nError: strict mode violation: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true }) resolved to 2 elements:\n    1) <a id=\"ui-id-2\" tabindex=\"-1\" title=\"Cassia Funnel Sweatshirt\" class=\"ui-menu-item-wrapper ui-state-active\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">…</a> aka locator('#ui-id-2')\n    2) <a title=\"Cassia Funnel Sweatshirt\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">Cassia Funnel Sweatshirt</a> aka locator('#ui-id-3').getByRole('link', { name: 'Cassia Funnel Sweatshirt' })\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\n",
+    "trace": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\nExpected: visible\nError: strict mode violation: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true }) resolved to 2 elements:\n    1) <a id=\"ui-id-2\" tabindex=\"-1\" title=\"Cassia Funnel Sweatshirt\" class=\"ui-menu-item-wrapper ui-state-active\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">…</a> aka locator('#ui-id-2')\n    2) <a title=\"Cassia Funnel Sweatshirt\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">Cassia Funnel Sweatshirt</a> aka locator('#ui-id-3').getByRole('link', { name: 'Cassia Funnel Sweatshirt' })\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\n\n    at HomePage.searchProduct (/Users/roxanenayara/ebac-shop-qa-challenge/pages/home.page.ts:37:31)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:33:7"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Launch browser",
+              "start": 1787958946235,
+              "uuid": "4779d4ed-dde5-4b2e-a06f-86cf82cfe5cc",
+              "stop": 1787958947073
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"browser\"",
+          "start": 1787958946233,
+          "uuid": "d4fd67d3-2eaa-46cf-b0f1-31a8306668da",
+          "stop": 1787958947073
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create context",
+              "start": 1787958947077,
+              "uuid": "4f386606-2c12-45cb-97ac-219f8df2bc14",
+              "stop": 1787958947105
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787958947075,
+          "uuid": "9ffacb6f-680f-4f60-a855-d2386dd594e5",
+          "stop": 1787958947106
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create page",
+              "start": 1787958947107,
+              "uuid": "c26fb0e9-ed4a-437b-8877-38da9c428d7e",
+              "stop": 1787958947772
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787958947106,
+          "uuid": "ed9bd954-c57a-4c2b-94d1-469ce364c89c",
+          "stop": 1787958947772
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "Before Hooks",
+      "start": 1787958946224,
+      "uuid": "389a891d-43e4-4d96-8395-06727315db01",
+      "stop": 1787958947772
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958947775,
+      "name": "Navigate to \"/minha-conta/\"",
+      "uuid": "9874c6ae-8548-4df3-a102-0893147982b8",
+      "stop": 1787958949048
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958949053,
+      "name": "Fill \"luna.oliveira\" locator('#username')",
+      "uuid": "6b8a7f79-3e32-4067-a495-3b28921f82b5",
+      "stop": 1787958949103
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958949105,
+      "name": "Fill \"Box255018*#\" locator('#password')",
+      "uuid": "2e8f1dc5-ddf0-4382-8928-3bb0512d9bd7",
+      "stop": 1787958949165
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958949167,
+      "name": "Click locator('input[name=\"login\"]')",
+      "uuid": "ba09c2a1-83d3-47c0-b98b-c0d52c222aeb",
+      "stop": 1787958950702
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958950708,
+      "name": "Expect \"toBeVisible\" locator('#tbay-topbar')",
+      "uuid": "8652cab7-f310-4d1f-9895-53175968fd5b",
+      "stop": 1787958951113
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958951114,
+      "name": "Expect \"toContainText\" locator('#tbay-topbar')",
+      "uuid": "7a56d877-d51d-4c68-ad25-2cd1014b484d",
+      "stop": 1787958951119
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958951119,
+      "name": "Expect \"toContainText\" locator('#tbay-topbar')",
+      "uuid": "711823b9-7f4b-4e0b-a8e2-cacfc7d3369a",
+      "stop": 1787958951123
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958951125,
+      "name": "Navigate to \"/\"",
+      "uuid": "2b2169f0-2a6c-4623-b6f2-998d22aed85c",
+      "stop": 1787958952136
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958952138,
+      "name": "Click getByRole('link', { name: /comprar/i })",
+      "uuid": "1846e6a7-91d5-4c09-81e7-77e2bf757ad8",
+      "stop": 1787958952624
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958952625,
+      "name": "Expect \"toHaveURL\"",
+      "uuid": "c64232a5-55e3-4f45-8978-7f18b89ffa97",
+      "stop": 1787958952745
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958952746,
+      "name": "Expect \"toBeVisible\" locator('input.tbay-search[name=\"s\"]:visible').first()",
+      "uuid": "b502b07e-53bb-487a-babe-7be961b8820d",
+      "stop": 1787958952807
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958952808,
+      "name": "Fill \"Cassia Funnel Sweatshirt\" locator('input.tbay-search[name=\"s\"]:visible').first()",
+      "uuid": "92288624-7cf1-48c4-868c-cb9be48e11ae",
+      "stop": 1787958952831
+    },
+    {
+      "status": "failed",
+      "statusDetails": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\nExpected: visible\nError: strict mode violation: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true }) resolved to 2 elements:\n    1) <a id=\"ui-id-2\" tabindex=\"-1\" title=\"Cassia Funnel Sweatshirt\" class=\"ui-menu-item-wrapper ui-state-active\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">…</a> aka locator('#ui-id-2')\n    2) <a title=\"Cassia Funnel Sweatshirt\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">Cassia Funnel Sweatshirt</a> aka locator('#ui-id-3').getByRole('link', { name: 'Cassia Funnel Sweatshirt' })\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\n",
+        "trace": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\nExpected: visible\nError: strict mode violation: getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true }) resolved to 2 elements:\n    1) <a id=\"ui-id-2\" tabindex=\"-1\" title=\"Cassia Funnel Sweatshirt\" class=\"ui-menu-item-wrapper ui-state-active\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">…</a> aka locator('#ui-id-2')\n    2) <a title=\"Cassia Funnel Sweatshirt\" href=\"http://lojaebac.ebaconline.art.br/product/cassia-funnel-sweatshirt/\">Cassia Funnel Sweatshirt</a> aka locator('#ui-id-3').getByRole('link', { name: 'Cassia Funnel Sweatshirt' })\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 5000ms\n  - waiting for getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })\n\n    at HomePage.searchProduct (/Users/roxanenayara/ebac-shop-qa-challenge/pages/home.page.ts:37:31)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:33:7"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787958952832,
+      "name": "Expect \"toBeVisible\" getByRole('link', { name: 'Cassia Funnel Sweatshirt', exact: true })",
+      "uuid": "f0160988-f3aa-4da6-92ff-07d73ecffe5b",
+      "stop": 1787958953941
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "source": "6d66493f-bc06-4fa9-bf8a-2610bd5a0556-attachment.png",
+          "type": "image/png"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958954419,
+      "name": "screenshot",
+      "stop": 1787958954420
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "video",
+          "source": "4ea5e761-fae2-4ebc-afef-5c2d7adef72f-attachment.webm",
+          "type": "video/webm"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958954443,
+      "name": "video",
+      "stop": 1787958954443
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "error-context",
+          "source": "f436ac29-93f3-41b7-a3e7-3af0a2369a07-attachment.md",
+          "type": "text/markdown"
+        }
+      ],
+      "parameters": [],
+      "start": 1787958954464,
+      "name": "error-context",
+      "stop": 1787958954464
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787958954057,
+          "uuid": "705b1ec3-9c54-4e7d-aadf-6d0c63a3ed6a",
+          "stop": 1787958954057
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Close context",
+              "start": 1787958954131,
+              "uuid": "e8d8b381-1796-47ae-b62d-28d1df571dcf",
+              "stop": 1787958954217
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787958954057,
+          "uuid": "7572b9c7-5e2d-4541-bfa0-ec0f7f2860a3",
+          "stop": 1787958954220
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "After Hooks",
+      "start": 1787958953942,
+      "uuid": "d8c13acc-b51b-420b-8acb-1edc88eb780b",
+      "stop": 1787958954227
+    }
+  ],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "cf67163f7358d951bafc693c07484a1c"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Fluxo de compra"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-14604-worker-0" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Fluxo de compra" }
+  ],
+  "links": [],
+  "start": 1787958946209,
+  "testCaseId": "eff4ae655314edb0be73e6d9790ea810",
+  "fullName": "checkout/purchase-flow.spec.ts:12:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Fluxo de compra"
+  ],
+  "stop": 1787958953354
+}

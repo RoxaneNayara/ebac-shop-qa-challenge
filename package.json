@@ -7,6 +7,8 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
+    "test:login": "playwright test tests/auth/login.spec.ts --project=chromium",
+    "test:purchase": "playwright test tests/checkout/purchase-flow.spec.ts --project=chromium",
     "report": "playwright show-report",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",

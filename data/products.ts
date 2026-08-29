@@ -4,14 +4,18 @@ export type Product = {
   size: string;
   color: string;
   unitPrice: number;
+  initialQuantity: number;
+  finalQuantity: number;
 };
 
 export const products = {
   cassiaFunnelSweatshirt: {
-    name: 'Cassia Funnel Sweatshirt',
-    slug: '/product/cassia-funnel-sweatshirt/',
-    size: 'M',
-    color: 'Orange',
+    name: "Cassia Funnel Sweatshirt",
+    slug: "/product/cassia-funnel-sweatshirt/",
+    size: "M",
+    color: "Orange",
     unitPrice: 48,
+    initialQuantity: 1,
+    finalQuantity: 2,
   },
 } satisfies Record<string, Product>;

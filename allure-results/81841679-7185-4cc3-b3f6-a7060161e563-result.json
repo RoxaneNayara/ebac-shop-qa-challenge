@@ -1,0 +1,692 @@
+{
+  "uuid": "81841679-7185-4cc3-b3f6-a7060161e563",
+  "name": "deve concluir uma compra com pagamento na entrega",
+  "historyId": "ea6e5426495cfb3bedf1a3ae65804f7f:5bd835b0d6b1d4ada3b9f0db936e82c8",
+  "status": "failed",
+  "statusDetails": {
+    "message": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"5511998741582\"\nReceived string:    \"000001123728202648001480048004800\"",
+    "trace": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"5511998741582\"\nReceived string:    \"000001123728202648001480048004800\"\n    at OrderPage.expectCustomerContact (/Users/roxanenayara/ebac-shop-qa-challenge/pages/order.page.ts:66:32)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:114:5"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Launch browser",
+              "start": 1787951258020,
+              "uuid": "295f4324-3529-4e91-868a-f0479bec4c4f",
+              "stop": 1787951258489
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"browser\"",
+          "start": 1787951258018,
+          "uuid": "6448581c-b9ba-4f43-a81b-efe43ab7d7cf",
+          "stop": 1787951258490
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create context",
+              "start": 1787951258494,
+              "uuid": "ae422381-908e-434f-b5ac-439aa7dec260",
+              "stop": 1787951258503
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787951258492,
+          "uuid": "47e5ac87-180d-47f2-bc99-862b6edaedf0",
+          "stop": 1787951258504
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Create page",
+              "start": 1787951258505,
+              "uuid": "f7a4b7a7-9706-4575-9efa-a4e58b8e4161",
+              "stop": 1787951259062
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787951258504,
+          "uuid": "cdefed3c-a30b-4bb9-b8c2-aa8882c9dd70",
+          "stop": 1787951259063
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "Before Hooks",
+      "start": 1787951258008,
+      "uuid": "39e9c9f6-7f1a-47e3-823f-1bb4564f26a9",
+      "stop": 1787951259063
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951259067,
+      "name": "Navigate to \"/product/cassia-funnel-sweatshirt/\"",
+      "uuid": "0c24dce6-87d2-4215-9f21-8388b6f86df3",
+      "stop": 1787951260603
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951260607,
+      "name": "Click locator('[role=\"radio\"][data-value=\"M\"]')",
+      "uuid": "6b5855d5-ceb6-4878-a20d-69146448c5d4",
+      "stop": 1787951260786
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951260788,
+      "name": "Click locator('[role=\"radio\"][data-value=\"Orange\"]')",
+      "uuid": "40a4d9d1-ba64-4a2d-adf3-0e678d4566b0",
+      "stop": 1787951260925
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951260927,
+      "name": "Click getByRole('button', { name: 'Comprar' })",
+      "uuid": "d64ae99c-5893-46ef-814f-1befb1cf957b",
+      "stop": 1787951261691
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951261697,
+      "name": "Expect \"toBeVisible\" getByText(/Cassia Funnel Sweatshirt.*adicionado no seu carrinho/i)",
+      "uuid": "63a407ad-633b-4642-b0b0-465235b2b7ed",
+      "stop": 1787951261823
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951261824,
+      "name": "Navigate to \"/carrinho/\"",
+      "uuid": "29d512e5-0e31-4a25-b95e-a8adfffdb872",
+      "stop": 1787951262687
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951262692,
+      "name": "Expect \"toHaveValue\" locator('tr.cart_item').filter({ has: locator('.product-name a').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' }) }).locator('input.qty')",
+      "uuid": "535a182f-fa0f-43a6-b95b-02dacbce70b6",
+      "stop": 1787951262722
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951262724,
+      "name": "Expect \"toContainText\" locator('.cart-subtotal')",
+      "uuid": "0f831162-eb61-46f3-8cee-a5ea4e1ef770",
+      "stop": 1787951262728
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951262729,
+      "name": "Expect \"toContainText\" locator('.order-total')",
+      "uuid": "f3731ce2-6eae-4180-8fa6-ee763ee43fdd",
+      "stop": 1787951262733
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951262734,
+      "name": "Click getByRole('link', { name: 'Concluir compra' })",
+      "uuid": "9ee96121-3732-48e2-8bfa-6c53fa06c5cd",
+      "stop": 1787951263279
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263282,
+      "name": "Fill \"Luna\" locator('#billing_first_name')",
+      "uuid": "e0c58e88-ef74-4bc7-9673-9b22b9569b80",
+      "stop": 1787951263459
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263460,
+      "name": "Fill \"Oliveira\" locator('#billing_last_name')",
+      "uuid": "97416366-b4d8-4510-9786-218f3558a057",
+      "stop": 1787951263593
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263595,
+      "name": "Fill \"Hospital São Camilo Santana\" locator('#billing_company')",
+      "uuid": "3a5fab8d-3933-4351-80c9-8dc63d8e91d9",
+      "stop": 1787951263611
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263612,
+      "name": "Select option locator('#billing_country')",
+      "uuid": "76c545d6-9efd-4b1b-8be8-52b7ef9dc875",
+      "stop": 1787951263666
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263667,
+      "name": "Fill \"Rua Santo Anselmo, 62\" locator('#billing_address_1')",
+      "uuid": "44ac1c7f-bfc4-4b8e-86b5-b5d8a68250bf",
+      "stop": 1787951263737
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263738,
+      "name": "Fill \"São Paulo\" locator('#billing_city')",
+      "uuid": "c4e4e550-482a-4cd5-93bf-d777abb4ddf4",
+      "stop": 1787951263756
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263757,
+      "name": "Select option locator('#billing_state')",
+      "uuid": "b2920218-84dc-403c-83e7-7398cb63af03",
+      "stop": 1787951263771
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263772,
+      "name": "Fill \"02362130\" locator('#billing_postcode')",
+      "uuid": "3973d93f-df78-499e-aa7e-47647af20fea",
+      "stop": 1787951263800
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263801,
+      "name": "Fill \"+5511998741582\" locator('#billing_phone')",
+      "uuid": "ce80e7c0-a8b6-4de0-b965-3cacedb1e1bb",
+      "stop": 1787951263824
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263825,
+      "name": "Fill \"luna.oliveira@gmail.com\" locator('#billing_email')",
+      "uuid": "06750826-1e70-4860-96ca-46789fe4dac2",
+      "stop": 1787951263895
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951263897,
+      "name": "Expect \"toHaveCount\" locator('.blockUI.blockOverlay')",
+      "uuid": "09f42540-4e48-4d42-9d19-a6110ad33ff5",
+      "stop": 1787951264087
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264089,
+      "name": "Check locator('#payment_method_cod')",
+      "uuid": "550930af-4f31-43ae-b876-8be937be59fa",
+      "stop": 1787951264134
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264135,
+      "name": "Expect \"toBeChecked\" locator('#payment_method_cod')",
+      "uuid": "75f3eced-d2fc-4f99-90f0-0d415cd16729",
+      "stop": 1787951264143
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264144,
+      "name": "Expect \"toHaveCount\" locator('.blockUI.blockOverlay')",
+      "uuid": "b1c7b1f7-dd3d-40b4-a3bc-3667c11e3979",
+      "stop": 1787951264148
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264149,
+      "name": "Check locator('#terms')",
+      "uuid": "d107811a-4823-418a-90e6-86956044ff56",
+      "stop": 1787951264414
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264415,
+      "name": "Expect \"toBeChecked\" locator('#terms')",
+      "uuid": "7992d732-b776-4384-a8d0-bb998c7bad6b",
+      "stop": 1787951264421
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264422,
+      "name": "Expect \"toHaveCount\" locator('.blockUI.blockOverlay')",
+      "uuid": "c9a4be90-6c18-44fd-a471-9bb4e5fd3bde",
+      "stop": 1787951264425
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264428,
+      "name": "Wait for navigation",
+      "uuid": "d73a88c2-13ee-484d-8018-d93ff73c7b67",
+      "stop": 1787951272126
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951264430,
+      "name": "Click locator('#place_order')",
+      "uuid": "1f678387-bd6b-47b6-9f74-d4892888c35f",
+      "stop": 1787951264491
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272128,
+      "name": "Expect \"toBeVisible\" getByRole('heading', { name: 'Pedido recebido' })",
+      "uuid": "cc85b7c1-5013-4f6a-9809-9fa8999793c5",
+      "stop": 1787951272169
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272170,
+      "name": "Expect \"toBeVisible\" locator('.woocommerce-order-overview__order strong')",
+      "uuid": "02869e11-e8b6-4939-ad35-f5b0559ba157",
+      "stop": 1787951272173
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272174,
+      "name": "Expect \"not toBeEmpty\" locator('.woocommerce-order-overview__order strong')",
+      "uuid": "a7851351-5802-4b16-94e8-ed58c5a69bef",
+      "stop": 1787951272177
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272178,
+      "name": "Expect \"toBeVisible\" locator('.woocommerce-table__line-item').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' })",
+      "uuid": "914553de-5fa9-492d-b0cd-ee450f3f0dcb",
+      "stop": 1787951272181
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272182,
+      "name": "Expect \"toContainText\" locator('.woocommerce-table__line-item').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' })",
+      "uuid": "f58d0c00-ccfc-4349-8f30-78e689ba53e1",
+      "stop": 1787951272184
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272185,
+      "name": "Expect \"toContainText\" locator('.woocommerce-table__line-item').filter({ hasText: 'Cassia Funnel Sweatshirt - M, Orange' })",
+      "uuid": "16d7f709-e8e2-4864-aad3-85ea56440af2",
+      "stop": 1787951272188
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272189,
+      "name": "Expect \"toContainText\" locator('.woocommerce-order-overview__total strong')",
+      "uuid": "956e1004-77cc-4981-9e5b-c6085bbc6866",
+      "stop": 1787951272192
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272193,
+      "name": "Expect \"toContainText\" locator('.woocommerce-order-overview__payment-method strong')",
+      "uuid": "433260b6-2b02-42a0-88cd-f83641a77fc6",
+      "stop": 1787951272195
+    },
+    {
+      "status": "failed",
+      "statusDetails": {
+        "message": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"5511998741582\"\nReceived string:    \"000001123728202648001480048004800\"",
+        "trace": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"5511998741582\"\nReceived string:    \"000001123728202648001480048004800\"\n    at OrderPage.expectCustomerContact (/Users/roxanenayara/ebac-shop-qa-challenge/pages/order.page.ts:66:32)\n    at /Users/roxanenayara/ebac-shop-qa-challenge/tests/checkout/purchase-flow.spec.ts:114:5"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1787951272200,
+      "name": "Expect \"toContain\"",
+      "uuid": "9c68ab99-786f-442e-a74b-8cd8ed1e5cc7",
+      "stop": 1787951272201
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "screenshot",
+          "source": "e294f006-a7a1-4241-8aff-d7b577f649a0-attachment.png",
+          "type": "image/png"
+        }
+      ],
+      "parameters": [],
+      "start": 1787951272628,
+      "name": "screenshot",
+      "stop": 1787951272628
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "video",
+          "source": "7210490b-df1b-4106-b8f4-c8eefa05a438-attachment.webm",
+          "type": "video/webm"
+        }
+      ],
+      "parameters": [],
+      "start": 1787951272651,
+      "name": "video",
+      "stop": 1787951272651
+    },
+    {
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "error-context",
+          "source": "93f785ba-012c-41c9-9892-bb9eccfdc12f-attachment.md",
+          "type": "text/markdown"
+        }
+      ],
+      "parameters": [],
+      "start": 1787951272673,
+      "name": "error-context",
+      "stop": 1787951272673
+    },
+    {
+      "status": "passed",
+      "statusDetails": {},
+      "stage": "finished",
+      "steps": [
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"page\"",
+          "start": 1787951272262,
+          "uuid": "31c6e2c6-3fd7-45bd-b091-0dd9dc6eb8e5",
+          "stop": 1787951272262
+        },
+        {
+          "status": "passed",
+          "statusDetails": {},
+          "stage": "finished",
+          "steps": [
+            {
+              "status": "passed",
+              "statusDetails": {},
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "name": "Close context",
+              "start": 1787951272346,
+              "uuid": "d5102ac1-781a-4660-b138-88d6c999d5da",
+              "stop": 1787951272446
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "name": "Fixture \"context\"",
+          "start": 1787951272262,
+          "uuid": "d661ecb2-8bdc-4fde-b9fd-490568471b4c",
+          "stop": 1787951272450
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "name": "After Hooks",
+      "start": 1787951272202,
+      "uuid": "1563b2b0-5b74-4857-b005-9e06dc999346",
+      "stop": 1787951272460
+    }
+  ],
+  "attachments": [],
+  "parameters": [{ "name": "Project", "value": "chromium" }],
+  "labels": [
+    { "name": "language", "value": "javascript" },
+    { "name": "framework", "value": "playwright" },
+    {
+      "name": "package",
+      "value": "ebac-shop-qa-challenge.checkout.purchase-flow.spec.ts"
+    },
+    {
+      "name": "_fallbackTestCaseId",
+      "value": "f35e8b7849192d2243c6c3af08d55d5d"
+    },
+    {
+      "name": "titlePath",
+      "value": " > chromium > checkout/purchase-flow.spec.ts > Checkout - pagamento na entrega"
+    },
+    { "name": "host", "value": "MacBookPro" },
+    { "name": "thread", "value": "pid-6908-worker-0" },
+    { "name": "parentSuite", "value": "chromium" },
+    { "name": "suite", "value": "checkout/purchase-flow.spec.ts" },
+    { "name": "subSuite", "value": "Checkout - pagamento na entrega" }
+  ],
+  "links": [],
+  "start": 1787951257995,
+  "testCaseId": "ea6e5426495cfb3bedf1a3ae65804f7f",
+  "fullName": "checkout/purchase-flow.spec.ts:74:7",
+  "titlePath": [
+    "ebac-shop-qa-challenge",
+    "checkout",
+    "purchase-flow.spec.ts",
+    "Checkout - pagamento na entrega"
+  ],
+  "stop": 1787951271953
+}
