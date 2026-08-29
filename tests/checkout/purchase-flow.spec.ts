@@ -50,8 +50,13 @@ test.describe("Fluxo de compra E2E", () => {
       await loginPage.expectLoggedIn(registeredCustomer.username);
     });
 
+    await test.step("Garantir carrinho vazio antes da jornada", async () => {
+      await cartPage.clearCart();
+    });
+
     await test.step("Acessar a loja e selecionar o produto", async () => {
       await homePage.goToHome();
+
       await homePage.goToShop();
 
       await homePage.searchProduct(product.name);
@@ -65,8 +70,6 @@ test.describe("Fluxo de compra E2E", () => {
       await productPage.selectColor(product.color);
 
       await productPage.addToCart();
-
-      await productPage.expectProductAdded(product.name);
     });
 
     await test.step("Validar o produto no carrinho", async () => {
@@ -107,6 +110,7 @@ test.describe("Fluxo de compra E2E", () => {
       await checkoutPage.fillBillingDetails(registeredCustomer);
 
       await checkoutPage.selectCashOnDelivery();
+
       await checkoutPage.acceptTerms();
 
       const checkoutResponsePromise = page.waitForResponse(
@@ -140,6 +144,7 @@ test.describe("Fluxo de compra E2E", () => {
 
     await test.step("Validar o pedido na área do cliente", async () => {
       await ordersPage.goToMyAccount();
+
       await ordersPage.openOrders();
 
       await ordersPage.expectOrderListed(

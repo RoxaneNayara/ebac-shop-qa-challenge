@@ -11,6 +11,30 @@ export class CartPage {
     });
   }
 
+  async clearCart(): Promise<void> {
+    await this.page.goto("/carrinho/");
+
+    await this.page.waitForLoadState("domcontentloaded");
+
+    const cartItems = this.page.locator("tr.cart_item");
+
+    while ((await cartItems.count()) > 0) {
+      const currentCount = await cartItems.count();
+
+      const removeButton = cartItems.first().locator("a.remove");
+
+      await expect(removeButton).toBeVisible();
+
+      await removeButton.click();
+
+      await expect(cartItems).toHaveCount(currentCount - 1, {
+        timeout: 15_000,
+      });
+    }
+
+    await expect(cartItems).toHaveCount(0);
+  }
+
   async expectProduct(
     productName: string,
     unitPrice: string,
