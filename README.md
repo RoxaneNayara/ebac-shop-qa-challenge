@@ -126,9 +126,7 @@ As execuções realizadas apresentaram tempos próximos entre si:
 
 O comportamento ficou, portanto, em torno de **8,3 segundos**.
 
-Isso não foi classificado como defeito.
-
-Sem uma regra de negócio, documentação ou SLA que determine qual é o tempo máximo aceitável para concluir uma compra, o resultado deve ser tratado como um **ponto a ser validado com Produto e Engenharia**.
+Isso não foi classificado como defeito. Sem uma regra de negócio, documentação ou SLA que determine qual é o tempo máximo aceitável para concluir uma compra, o resultado deve ser tratado como um **ponto a ser validado com Produto e Engenharia**.
 
 Por esse motivo, a referência de 5 segundos não funciona como quality gate bloqueante no CI. Caso o tempo fique acima dela, o teste registra a informação como warning.
 
@@ -205,9 +203,7 @@ Por isso, foi incluído um cenário específico para verificar que essas informa
 
 ## O que decidi não automatizar
 
-Nem todo cenário possível foi transformado em automação.
-
-Algumas decisões foram intencionais.
+Nem todo cenário possível foi transformado em automação. Algumas decisões foram intencionais.
 
 ### Compra com dois produtos diferentes
 
@@ -224,13 +220,11 @@ O comportamento crítico de carrinho já é exercitado com:
 
 Adicionar outro produto aumentaria o tempo e a complexidade da execução sem reduzir de forma significativa a incerteza sobre o fluxo obrigatório.
 
-Em um produto real, esse cenário poderia ser incluído caso existissem regras específicas envolvendo promoções, frete, estoque ou combinação de itens. Num caso real esse teste pode ser incluso.
+Em um produto real, esse cenário poderia ser incluído caso existissem regras específicas envolvendo promoções, frete, estoque ou combinação de itens.
 
 ### Muitas combinações de tamanho e cor
 
-Foi utilizada uma combinação válida representativa.
-
-Não foi criada uma matriz completa de tamanhos e cores porque não foram identificadas regras diferentes entre essas combinações.
+Foi utilizada uma combinação válida representativa. Não foi criada uma matriz completa de tamanhos e cores porque não foram identificadas regras diferentes entre essas combinações.
 
 Caso preço, disponibilidade ou comportamento variassem de acordo com tamanho/cor, essa cobertura poderia ser parametrizada.
 
@@ -238,17 +232,15 @@ Caso preço, disponibilidade ou comportamento variassem de acordo com tamanho/co
 
 Os métodos disponíveis foram explorados durante os testes manuais.
 
-Para o fluxo automatizado principal foi priorizado **Pagamento na entrega**, por permitir finalizar a jornada de maneira previsível no ambiente.
+Para o fluxo automatizado principal, foi priorizado **Pagamento na entrega**, por permitir finalizar a jornada de maneira previsível no ambiente.
 
 Os demais métodos continuam sendo candidatos naturais para regressão caso existam regras específicas de negócio ou integrações diferentes.
 
 ### Carga agressiva no checkout
 
-Não foi executado teste de carga pesada sobre a finalização da compra, porque cada conclusão gera um pedido real.
+Não foi executado teste de carga pesada sobre a finalização da compra, porque cada conclusão gera um pedido real. Executar dezenas ou centenas de compras artificialmente poderia poluir os dados e até prejudicar a utilização do ambiente.
 
-Executar dezenas ou centenas de compras artificialmente poderia poluir os dados e até prejudicar a utilização do ambiente.
-
-Por isso, a carga foi aplicada de maneira leve e não destrutiva em produto e carrinho.
+Por isso, a carga foi aplicada de maneira leve em produto e carrinho.
 
 ### Concorrência e duplicidade de pedidos
 
@@ -299,11 +291,7 @@ Como este é um ambiente fornecido especificamente para testes, registro esse po
 
 ### Elementos duplicados no DOM
 
-Durante a automação foram encontrados elementos equivalentes das versões responsivas do layout coexistindo no DOM.
-
-Alguns estavam visíveis e outros ocultos.
-
-Isso exigiu seletores mais específicos para evitar que a automação interagisse com componentes que não representavam a interface apresentada ao usuário.
+Durante a automação foram encontrados elementos equivalentes das versões responsivas do layout coexistindo no DOM. Alguns estavam visíveis e outros ocultos. Isso exigiu seletores mais específicos para evitar que a automação interagisse com componentes que não representavam a interface apresentada ao usuário.
 
 Como melhoria, seria interessante revisar a semântica desses componentes e garantir diferenciação adequada dos elementos inativos.
 
@@ -350,31 +338,23 @@ Então eu reproduziria uma compra ponta a ponta acompanhando a execução pelo N
 - número ou identificador retornado para o pedido;
 - comportamento apresentado pela interface.
 
-Durante a exploração deste desafio validei tanto o comportamento de um usuário autenticado quanto o de um usuário deslogado.
-
-No fluxo autenticado, o pedido criado permaneceu disponível posteriormente em **Meus Pedidos**.
+Durante a exploração deste desafio validei tanto o comportamento de um usuário autenticado quanto o de um usuário deslogado. No fluxo autenticado, o pedido criado permaneceu disponível posteriormente em **Meus Pedidos**.
 
 Também observei que a aplicação permite realizar compras sem autenticação. Nesse caso, naturalmente não existe uma área autenticada de pedidos disponível imediatamente para aquele usuário.
 
-Isso adicionaria uma pergunta importante à investigação:
-
-**O cliente estava autenticado no momento em que concluiu a compra?**
+Isso adicionaria uma pergunta importante à investigação: **O cliente estava autenticado no momento em que concluiu a compra?**
 
 Mesmo que ele posteriormente entre em sua conta e diga que o pedido não está em **Meus Pedidos**, seria necessário confirmar se aquela compra foi realizada dentro da mesma sessão autenticada ou como convidado.
 
 Depois dessa primeira análise, eu levaria as evidências para Produto e Backend.
 
-Minha próxima pergunta seria:
-
-**O pedido chegou a ser persistido?**
+Minha próxima pergunta seria: **O pedido chegou a ser persistido?**
 
 A partir daí, a investigação ficaria mais direcionada.
 
 #### O checkout retornou sucesso, mas não existe pedido no backend
 
-O foco passa a ser criação ou persistência do pedido.
-
-Eu investigaria logs do mesmo intervalo, erros de banco, timeout ou falhas de integração.
+O foco passa a ser criação ou persistência do pedido, então eu investigaria logs do mesmo intervalo, erros de banco, timeout ou falhas de integração.
 
 #### O pedido existe no backend, mas não aparece em Meus Pedidos
 
@@ -432,7 +412,6 @@ A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar 
 - revisar atributos de acessibilidade dos componentes de variação;
 - utilizar HTTPS/TLS em ambientes que manipulem dados reais;
 - disponibilizar ambiente ou massa própria para testes de carga;
-- criar mecanismo de limpeza de pedidos gerados por automação.
 
 ---
 
@@ -450,7 +429,7 @@ A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar 
 
 ## Arquitetura e organização da automação
 
-A estrutura foi organizada para separar responsabilidades e reduzir duplicação sem esconder o comportamento que está sendo validado.
+A estrutura foi organizada para separar responsabilidades e reduzir duplicação.
 
 Foi utilizado **Page Object Model (POM)** para concentrar as interações e asserções relacionadas às páginas. Sobre essa base, foram adicionadas camadas menores e reutilizáveis:
 
@@ -824,7 +803,7 @@ Em `push` e `pull_request` para a branch `main`, o pipeline executa:
 - teste de segurança;
 - upload do relatório do Playwright como artefato.
 
-O cenário exploratório de performance do checkout não roda automaticamente em todo `push`, pois cada execução cria um pedido real.
+O cenário exploratório de performance do checkout não roda automaticamente em todo `push`, pois cada execução cria um pedido.
 
 O fluxo E2E principal continua fazendo parte da execução automática e, por validar a jornada completa, cria um pedido por execução do pipeline. O cenário de performance fica separado para evitar a criação de um segundo pedido a cada `push`.
 
@@ -875,7 +854,7 @@ As evidências abaixo foram registradas durante a execução dos testes e a inve
 
 ## Considerações finais
 
-O objetivo desta solução foi cobrir o fluxo solicitado automatizando apenas os cenários interessantes para esse projeto.
+O objetivo desta solução foi cobrir o fluxo de checkout automatizando apenas os cenários interessantes para esse projeto.
 
 A exploração manual foi usada para entender primeiro o produto e os riscos. A automação veio depois, direcionada para os pontos que poderiam gerar maior impacto na jornada de compra.
 
