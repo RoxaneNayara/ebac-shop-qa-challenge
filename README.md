@@ -1,5 +1,3 @@
-# EBAC Shop — Desafio Técnico de QA
-
 <p align="center">
   <img src="./docs/banner-qa-challenge.png" alt="Banner do desafio técnico de QA da Aarin com a EBAC Shop" width="100%">
 </p>
@@ -450,6 +448,34 @@ A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar 
 
 ---
 
+## Arquitetura e organização da automação
+
+A estrutura foi organizada para separar responsabilidades e reduzir duplicação sem esconder o comportamento que está sendo validado.
+
+Foi utilizado **Page Object Model (POM)** para concentrar as interações e asserções relacionadas às páginas. Sobre essa base, foram adicionadas camadas menores e reutilizáveis:
+
+- `pages/`: interação com as páginas e validações específicas da interface;
+- `flows/`: sequências reutilizáveis de negócio, como autenticação, preparação do carrinho, seleção do produto e preparação do checkout;
+- `fixtures/`: disponibilização dos Page Objects e Flows aos testes sem necessidade de instanciação repetida;
+- `helpers/`: utilidades técnicas independentes, como formatação de valores em BRL;
+- `data/`: massa e dados utilizados pelos cenários, incluindo cliente, produto e método de pagamento;
+- `tests/`: cenários, passos de negócio e asserções que devem permanecer explícitas no teste.
+
+A intenção dessa separação foi manter os testes legíveis e facilitar manutenção. Por exemplo, o teste E2E não precisa conhecer os detalhes de autenticação ou de limpeza do carrinho, mas continua deixando visíveis as validações críticas do checkout, como a observação da requisição `POST /?wc-ajax=checkout` e a confirmação do status HTTP.
+
+Também foram adicionadas **tags** para permitir execução seletiva dos testes Playwright:
+
+```text
+@smoke @auth
+@e2e
+@security
+@performance
+```
+
+O uso de `storageState` e de um `beforeEach` global foi considerado, mas não adotado neste contexto. Durante a exploração, o ambiente demonstrou persistência de estado associada ao usuário, especialmente no carrinho. Por isso, foi priorizada a preparação explícita das pré-condições necessárias a cada cenário, preservando previsibilidade e isolamento.
+
+---
+
 ## Estrutura do projeto
 
 ```text
@@ -460,7 +486,20 @@ A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar 
 │
 ├── data/
 │   ├── customers.ts
+│   ├── payment-methods.ts
 │   └── products.ts
+│
+├── fixtures/
+│   └── test.fixture.ts
+│
+├── flows/
+│   ├── auth.flow.ts
+│   ├── cart.flow.ts
+│   ├── checkout.flow.ts
+│   └── product.flow.ts
+│
+├── helpers/
+│   └── currency.helper.ts
 │
 ├── pages/
 │   ├── cart.page.ts
@@ -574,6 +613,24 @@ npx playwright test --project=chromium --grep-invert @performance
 ```
 
 Essa é a suíte utilizada automaticamente no CI.
+
+### Execução seletiva por tags
+
+Os testes Playwright podem ser filtrados pelas tags adicionadas aos cenários:
+
+```bash
+npx playwright test --grep @smoke
+npx playwright test --grep @auth
+npx playwright test --grep @e2e
+npx playwright test --grep @security
+npx playwright test --grep @performance
+```
+
+Também é possível apenas listar os testes de uma categoria, sem executá-los:
+
+```bash
+npx playwright test --list --grep @security
+```
 
 ### Executar com navegador visível
 
@@ -704,6 +761,14 @@ k6 version
 
 ### Execução
 
+O cenário pode ser executado pelo script do projeto:
+
+```bash
+npm run test:k6
+```
+
+ou diretamente pelo K6:
+
 ```bash
 k6 run tests/k6/smoke-test.js
 ```
@@ -760,6 +825,8 @@ Em `push` e `pull_request` para a branch `main`, o pipeline executa:
 - upload do relatório do Playwright como artefato.
 
 O cenário exploratório de performance do checkout não roda automaticamente em todo `push`, pois cada execução cria um pedido real.
+
+O fluxo E2E principal continua fazendo parte da execução automática e, por validar a jornada completa, cria um pedido por execução do pipeline. O cenário de performance fica separado para evitar a criação de um segundo pedido a cada `push`.
 
 Ele é executado separadamente por meio de `workflow_dispatch`, evitando gerar massa de pedidos desnecessária no ambiente.
 
