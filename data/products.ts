@@ -13,7 +13,7 @@ export const products = {
     name: "Cassia Funnel Sweatshirt",
     slug: "/product/cassia-funnel-sweatshirt/",
     size: "M",
-    color: "Orange",
+    color: "Purple",
     unitPrice: 48,
     initialQuantity: 1,
     finalQuantity: 2,

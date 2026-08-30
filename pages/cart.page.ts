@@ -13,7 +13,6 @@ export class CartPage {
 
   async clearCart(): Promise<void> {
     await this.page.goto("/carrinho/");
-
     await this.page.waitForLoadState("domcontentloaded");
 
     const cartItems = this.page.locator("tr.cart_item");
@@ -37,6 +36,8 @@ export class CartPage {
 
   async expectProduct(
     productName: string,
+    size: string,
+    color: string,
     unitPrice: string,
     quantity: number,
     subtotal: string,
@@ -44,6 +45,10 @@ export class CartPage {
     const row = this.productRow(productName);
 
     await expect(row.locator(".product-name a")).toContainText(productName);
+
+    await expect(row.locator(".product-name")).toContainText(size);
+
+    await expect(row.locator(".product-name")).toContainText(color);
 
     await expect(row.locator(".product-price")).toContainText(unitPrice);
 

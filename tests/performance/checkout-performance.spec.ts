@@ -1,59 +1,51 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "../../fixtures/test.fixture";
 
-import { LoginPage } from "../../pages/login.page";
-import { ProductPage } from "../../pages/product.page";
-import { CartPage } from "../../pages/cart.page";
-import { CheckoutPage } from "../../pages/checkout.page";
-
-import { products } from "../../data/products";
 import { registeredCustomer } from "../../data/customers";
+import { products } from "../../data/products";
+
+import { formatBRL } from "../../helpers/currency.helper";
 
 const product = products.cassiaFunnelSweatshirt;
 
-const cartProductName = `${product.name} - ${product.size}, ${product.color}`;
+const unitPrice = formatBRL(product.unitPrice);
+
+const initialTotal = formatBRL(product.unitPrice * product.initialQuantity);
 
 const REFERENCE_CHECKOUT_TIME_MS = 5_000;
 
 test.describe("Performance - checkout", () => {
   test("deve finalizar o pedido em até 5 segundos @performance", async ({
     page,
+    authFlow,
+    cartFlow,
+    productFlow,
+    checkoutFlow,
+    cartPage,
+    checkoutPage,
   }) => {
-    const loginPage = new LoginPage(page);
-    const productPage = new ProductPage(page);
-    const cartPage = new CartPage(page);
-    const checkoutPage = new CheckoutPage(page);
-
     await test.step("Preparar carrinho e checkout", async () => {
-      await page.goto("/minha-conta/");
+      await authFlow.loginAsRegisteredCustomer();
 
-      await loginPage.login(
-        registeredCustomer.username,
-        registeredCustomer.password,
-      );
+      await cartFlow.prepareEmptyCart();
 
-      await loginPage.expectLoggedIn(registeredCustomer.username);
+      await productFlow.openProduct(product.name, product.slug);
 
-      await page.goto(product.slug);
-
-      await productPage.selectSize(product.size);
-      await productPage.selectColor(product.color);
-      await productPage.addToCart();
+      await productFlow.configureAndAddToCart(product.size, product.color);
 
       await page.goto("/carrinho/");
 
       await cartPage.expectProduct(
-        cartProductName,
-        "R$48,00",
+        product.name,
+        product.size,
+        product.color,
+        unitPrice,
         product.initialQuantity,
-        "R$48,00",
+        initialTotal,
       );
 
       await cartPage.proceedToCheckout();
 
-      await checkoutPage.fillBillingDetails(registeredCustomer);
-
-      await checkoutPage.selectCashOnDelivery();
-      await checkoutPage.acceptTerms();
+      await checkoutFlow.prepareCheckout(registeredCustomer);
     });
 
     await test.step("Medir tempo de processamento do pedido", async () => {
@@ -62,8 +54,6 @@ test.describe("Performance - checkout", () => {
       await checkoutPage.placeOrder();
 
       const checkoutTime = Date.now() - startTime;
-
-      console.log(`Tempo de processamento do checkout: ${checkoutTime} ms`);
 
       console.log(`Tempo de processamento do checkout: ${checkoutTime} ms`);
 

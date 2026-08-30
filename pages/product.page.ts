@@ -20,14 +20,25 @@ export class ProductPage {
   }
 
   async addToCart(): Promise<void> {
-    await this.page.getByRole("button", { name: "Comprar" }).click();
-  }
+    const variationId = this.page.locator('input[name="variation_id"]');
 
-  async expectProductAdded(productName: string): Promise<void> {
-    await expect(
-      this.page.getByText(
-        new RegExp(`${productName}.*adicionado no seu carrinho`, "i"),
-      ),
-    ).toBeVisible();
+    const outOfStockMessage = this.page.getByText(/fora de estoque/i);
+
+    const addToCartButton = this.page.getByRole("button", { name: "Comprar" });
+
+    await expect(variationId).not.toHaveValue("", {
+      timeout: 10_000,
+    });
+
+    await expect(variationId).not.toHaveValue("0", {
+      timeout: 10_000,
+    });
+
+    await expect(outOfStockMessage).not.toBeVisible();
+
+    await expect(addToCartButton).toBeVisible();
+    await expect(addToCartButton).toBeEnabled();
+
+    await addToCartButton.click();
   }
 }

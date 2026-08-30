@@ -48,7 +48,9 @@ test.describe("Fluxo de compra E2E", () => {
       await page.goto("/carrinho/");
 
       await cartPage.expectProduct(
-        cartProductName,
+        product.name,
+        product.size,
+        product.color,
         unitPrice,
         product.initialQuantity,
         initialTotal,
@@ -59,12 +61,14 @@ test.describe("Fluxo de compra E2E", () => {
     });
 
     await test.step("Alterar a quantidade e validar o recálculo", async () => {
-      await cartPage.increaseQuantity(cartProductName);
+      await cartPage.increaseQuantity(product.name);
 
-      await cartPage.expectQuantity(cartProductName, product.finalQuantity);
+      await cartPage.expectQuantity(product.name, product.finalQuantity);
 
       await cartPage.expectProduct(
-        cartProductName,
+        product.name,
+        product.size,
+        product.color,
         unitPrice,
         product.finalQuantity,
         finalTotal,
