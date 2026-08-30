@@ -9,6 +9,8 @@
     "test:debug": "playwright test --debug",
     "test:login": "playwright test tests/auth/login.spec.ts --project=chromium",
     "test:purchase": "playwright test tests/checkout/purchase-flow.spec.ts --project=chromium",
+    "test:order-access": "playwright test tests/security/order-access.spec.ts --project=chromium",
+    "test:k6": "k6 run tests/k6/smoke-test.js",
     "report": "playwright show-report",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",

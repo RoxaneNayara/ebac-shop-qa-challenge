@@ -5,7 +5,7 @@ import { OrdersPage } from "../../pages/orders.page";
 import { registeredCustomer } from "../../data/customers";
 
 test.describe("Segurança - controle de acesso ao pedido", () => {
-  test("não deve permitir visualizar pedido sem autenticação", async ({
+  test("não deve permitir visualizar pedido sem autenticação @security", async ({
     page,
   }) => {
     const loginPage = new LoginPage(page);

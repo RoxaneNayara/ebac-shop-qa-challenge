@@ -15,4 +15,5 @@ node_modules/
 # Environment variables
 .env
 .env.*
-!.env.example.DS_Store
+!.env.example
+.DS_Store

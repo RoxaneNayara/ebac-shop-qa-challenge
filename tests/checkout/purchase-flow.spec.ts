@@ -1,75 +1,47 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../../fixtures/test.fixture";
 
 import { registeredCustomer } from "../../data/customers";
+import { paymentMethods } from "../../data/payment-methods";
 import { products } from "../../data/products";
 
-import { CartPage } from "../../pages/cart.page";
-import { CheckoutPage } from "../../pages/checkout.page";
-import { HomePage } from "../../pages/home.page";
-import { LoginPage } from "../../pages/login.page";
-import { OrderPage } from "../../pages/order.page";
-import { OrdersPage } from "../../pages/orders.page";
-import { ProductPage } from "../../pages/product.page";
+import { formatBRL } from "../../helpers/currency.helper";
 
 const product = products.cassiaFunnelSweatshirt;
 
-const paymentMethod = "Pagamento na entrega";
-
 const cartProductName = `${product.name} - ${product.size}, ${product.color}`;
 
-const unitPrice = `R$${product.unitPrice.toFixed(2).replace(".", ",")}`;
+const unitPrice = formatBRL(product.unitPrice);
 
-const initialTotal = `R$${(product.unitPrice * product.initialQuantity)
-  .toFixed(2)
-  .replace(".", ",")}`;
+const initialTotal = formatBRL(product.unitPrice * product.initialQuantity);
 
-const finalTotal = `R$${(product.unitPrice * product.finalQuantity)
-  .toFixed(2)
-  .replace(".", ",")}`;
+const finalTotal = formatBRL(product.unitPrice * product.finalQuantity);
 
 test.describe("Fluxo de compra E2E", () => {
-  test("deve realizar o fluxo completo de compra com alteração de quantidade e pagamento na entrega", async ({
+  test("deve realizar o fluxo completo de compra com alteração de quantidade e pagamento na entrega @e2e", async ({
     page,
+    authFlow,
+    cartFlow,
+    productFlow,
+    checkoutFlow,
+    cartPage,
+    checkoutPage,
+    orderPage,
+    ordersPage,
   }) => {
-    const loginPage = new LoginPage(page);
-    const homePage = new HomePage(page);
-    const productPage = new ProductPage(page);
-    const cartPage = new CartPage(page);
-    const checkoutPage = new CheckoutPage(page);
-    const orderPage = new OrderPage(page);
-    const ordersPage = new OrdersPage(page);
-
     await test.step("Autenticar cliente cadastrado", async () => {
-      await page.goto("/minha-conta/");
-
-      await loginPage.login(
-        registeredCustomer.username,
-        registeredCustomer.password,
-      );
-
-      await loginPage.expectLoggedIn(registeredCustomer.username);
+      await authFlow.loginAsRegisteredCustomer();
     });
 
     await test.step("Garantir carrinho vazio antes da jornada", async () => {
-      await cartPage.clearCart();
+      await cartFlow.prepareEmptyCart();
     });
 
     await test.step("Acessar a loja e selecionar o produto", async () => {
-      await homePage.goToHome();
-
-      await homePage.goToShop();
-
-      await homePage.searchProduct(product.name);
-
-      await homePage.expectProductPage(product.slug);
+      await productFlow.openProduct(product.name, product.slug);
     });
 
-    await test.step("Selecionar as variações e adicionar ao carrinho", async () => {
-      await productPage.selectSize(product.size);
-
-      await productPage.selectColor(product.color);
-
-      await productPage.addToCart();
+    await test.step("Configurar produto e adicionar ao carrinho", async () => {
+      await productFlow.configureAndAddToCart(product.size, product.color);
     });
 
     await test.step("Validar o produto no carrinho", async () => {
@@ -83,7 +55,6 @@ test.describe("Fluxo de compra E2E", () => {
       );
 
       await cartPage.expectCartSubtotal(initialTotal);
-
       await cartPage.expectCartTotal(initialTotal);
     });
 
@@ -100,18 +71,13 @@ test.describe("Fluxo de compra E2E", () => {
       );
 
       await cartPage.expectCartSubtotal(finalTotal);
-
       await cartPage.expectCartTotal(finalTotal);
     });
 
     await test.step("Realizar o checkout e validar a integração com o backend", async () => {
       await cartPage.proceedToCheckout();
 
-      await checkoutPage.fillBillingDetails(registeredCustomer);
-
-      await checkoutPage.selectCashOnDelivery();
-
-      await checkoutPage.acceptTerms();
+      await checkoutFlow.prepareCheckout(registeredCustomer);
 
       const checkoutResponsePromise = page.waitForResponse(
         (response) =>
@@ -135,7 +101,7 @@ test.describe("Fluxo de compra E2E", () => {
 
       await orderPage.expectOrderTotal(finalTotal);
 
-      await orderPage.expectPaymentMethod(paymentMethod);
+      await orderPage.expectPaymentMethod(paymentMethods.cashOnDelivery);
 
       await orderPage.expectCartEmpty();
 
@@ -162,7 +128,7 @@ test.describe("Fluxo de compra E2E", () => {
         cartProductName,
         product.finalQuantity,
         finalTotal,
-        paymentMethod,
+        paymentMethods.cashOnDelivery,
       );
     });
   });
