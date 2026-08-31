@@ -11,7 +11,7 @@ export const options = {
   },
 };
 
-const BASE_URL = "http://lojaebac.ebaconline.art.br";
+const BASE_URL = __ENV.BASE_URL || "http://lojaebac.ebaconline.art.br";
 
 export default function () {
   const productResponse = http.get(
@@ -24,6 +24,10 @@ export default function () {
 
   const cartResponse = http.get(`${BASE_URL}/carrinho/`);
 
+  // O check aceita qualquer status abaixo de 500 (não exige 200 exato):
+  // como o K6 não estabelece sessão autenticada, o carrinho pode responder
+  // com redirecionamento dependendo do estado da sessão. O objetivo aqui é
+  // detectar erro de servidor, não validar o conteúdo da página.
   check(cartResponse, {
     "carrinho responde sem erro de servidor": (response) =>
       response.status < 500,
