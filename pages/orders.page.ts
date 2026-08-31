@@ -1,5 +1,7 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 
+import { formatItemCount } from "../helpers/item-count.helper";
+
 export class OrdersPage {
   private readonly ordersLink: Locator;
   private readonly ordersTable: Locator;
@@ -63,9 +65,7 @@ export class OrdersPage {
 
     await expect(totalCell).toContainText(expectedTotal);
 
-    await expect(totalCell).toContainText(
-      expectedItems === 1 ? "1 item" : `${expectedItems} itens`,
-    );
+    await expect(totalCell).toContainText(formatItemCount(expectedItems));
   }
 
   async viewOrder(orderNumber: string): Promise<void> {

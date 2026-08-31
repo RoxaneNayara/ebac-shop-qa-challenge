@@ -17,21 +17,21 @@ export class CartPage {
 
     const cartItems = this.page.locator("tr.cart_item");
 
-    while ((await cartItems.count()) > 0) {
-      const currentCount = await cartItems.count();
+    let remaining = await cartItems.count();
 
+    while (remaining > 0) {
       const removeButton = cartItems.first().locator("a.remove");
 
       await expect(removeButton).toBeVisible();
 
       await removeButton.click();
 
-      await expect(cartItems).toHaveCount(currentCount - 1, {
+      remaining -= 1;
+
+      await expect(cartItems).toHaveCount(remaining, {
         timeout: 15_000,
       });
     }
-
-    await expect(cartItems).toHaveCount(0);
   }
 
   async expectProduct(

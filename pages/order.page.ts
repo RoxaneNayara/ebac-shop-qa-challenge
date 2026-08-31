@@ -1,5 +1,7 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 
+import { formatBRL } from "../helpers/currency.helper";
+
 export class OrderPage {
   private readonly orderReceivedTitle: Locator;
   private readonly orderNumber: Locator;
@@ -72,6 +74,6 @@ export class OrderPage {
 
     await expect(this.cartItems).toHaveText("0");
 
-    await expect(this.cartAmount).toContainText("0,00");
+    await expect(this.cartAmount).toContainText(formatBRL(0));
   }
 }
