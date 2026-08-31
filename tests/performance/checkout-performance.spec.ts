@@ -62,6 +62,9 @@ test.describe("Performance - checkout", () => {
         description: `Checkout processado em ${checkoutTime} ms. Referência exploratória: ${REFERENCE_CHECKOUT_TIME_MS} ms.`,
       });
 
+      // Decisão intencional: 5s é uma referência exploratória, não um SLA.
+      // Ultrapassar gera warning informativo, não falha o teste (ver README).
+      // eslint-disable-next-line playwright/no-conditional-in-test
       if (checkoutTime > REFERENCE_CHECKOUT_TIME_MS) {
         console.warn(
           `⚠ Checkout acima da referência exploratória de ${REFERENCE_CHECKOUT_TIME_MS} ms: ${checkoutTime} ms`,

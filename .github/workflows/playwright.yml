@@ -38,6 +38,9 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
+      - name: Run lint
+        run: npm run lint
+
       - name: Run functional and security tests
         run: npx playwright test --project=chromium --grep-invert @performance
         env:

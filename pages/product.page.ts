@@ -6,6 +6,9 @@ export class ProductPage {
   async selectSize(size: string): Promise<void> {
     const sizeSelect = this.page.locator('select[name="attribute_size"]');
 
+    // Necessário: o DOM mantém elementos duplicados das versões responsivas
+    // do layout (ver README).
+    // eslint-disable-next-line playwright/no-force-option
     await sizeSelect.selectOption({ value: size }, { force: true });
 
     await expect(sizeSelect).toHaveValue(size);
@@ -14,6 +17,9 @@ export class ProductPage {
   async selectColor(color: string): Promise<void> {
     const colorSelect = this.page.locator('select[name="attribute_color"]');
 
+    // Necessário: o DOM mantém elementos duplicados das versões responsivas
+    // do layout (ver README).
+    // eslint-disable-next-line playwright/no-force-option
     await colorSelect.selectOption({ value: color }, { force: true });
 
     await expect(colorSelect).toHaveValue(color);
@@ -34,7 +40,7 @@ export class ProductPage {
       timeout: 10_000,
     });
 
-    await expect(outOfStockMessage).not.toBeVisible();
+    await expect(outOfStockMessage).toBeHidden();
 
     await expect(addToCartButton).toBeVisible();
     await expect(addToCartButton).toBeEnabled();
