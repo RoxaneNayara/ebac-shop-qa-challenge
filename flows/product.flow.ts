@@ -19,9 +19,14 @@ export class ProductFlow {
     await this.homePage.expectProductPage(productSlug);
   }
 
-  async configureAndAddToCart(size: string, color: string): Promise<void> {
+  async configureAndAddToCart(
+    size: string,
+    color: string,
+    minimumQuantity: number,
+  ): Promise<void> {
     await this.productPage.selectSize(size);
     await this.productPage.selectColor(color);
+    await this.productPage.expectSufficientStock(minimumQuantity);
     await this.productPage.addToCart();
   }
 }

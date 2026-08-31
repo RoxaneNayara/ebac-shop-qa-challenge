@@ -3,6 +3,22 @@ import { expect, type Page } from "@playwright/test";
 export class ProductPage {
   constructor(private readonly page: Page) {}
 
+  async expectSufficientStock(minimumQuantity: number): Promise<void> {
+    const stockLabel = this.page.locator("p.stock.in-stock:visible").first();
+
+    await expect(stockLabel).toBeVisible({ timeout: 10_000 });
+
+    const stockText = (await stockLabel.textContent()) ?? "";
+    const match = stockText.match(/(\d+)/);
+    const availableStock = match ? Number(match[1]) : 0;
+
+    if (availableStock < minimumQuantity) {
+      throw new Error(
+        `Estoque insuficiente para executar o teste: ${availableStock} unidade(s) disponível(is), ${minimumQuantity} necessária(s). Isso é uma condição do ambiente compartilhado, não uma falha da automação.`,
+      );
+    }
+  }
+
   async selectSize(size: string): Promise<void> {
     const sizeSelect = this.page.locator('select[name="attribute_size"]');
 

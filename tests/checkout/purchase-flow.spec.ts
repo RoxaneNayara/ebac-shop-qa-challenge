@@ -41,7 +41,11 @@ test.describe("Fluxo de compra E2E", () => {
     });
 
     await test.step("Configurar produto e adicionar ao carrinho", async () => {
-      await productFlow.configureAndAddToCart(product.size, product.color);
+      await productFlow.configureAndAddToCart(
+        product.size,
+        product.color,
+        product.finalQuantity,
+      );
     });
 
     await test.step("Validar o produto no carrinho", async () => {

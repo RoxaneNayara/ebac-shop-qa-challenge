@@ -30,7 +30,11 @@ test.describe("Performance - checkout", () => {
 
       await productFlow.openProduct(product.name, product.slug);
 
-      await productFlow.configureAndAddToCart(product.size, product.color);
+      await productFlow.configureAndAddToCart(
+        product.size,
+        product.color,
+        product.initialQuantity,
+      );
 
       await page.goto("/carrinho/");
 
