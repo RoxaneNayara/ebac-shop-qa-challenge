@@ -2,7 +2,7 @@
   <img src="./docs/banner-qa-challenge.png" alt="Banner do desafio técnico de QA da Aarin com a EBAC Shop" width="100%">
 </p>
 
-Este projeto foi desenvolvido a partir da jornada de compra da EBAC Shop, com foco não apenas em automatizar o fluxo solicitado, mas também em entender os principais riscos envolvidos na experiência de compra.
+Este projeto automatiza o fluxo de compra da EBAC Shop e documenta o raciocínio por trás de cada decisão de teste — o que foi coberto, o que ficou de fora e por quê.
 
 Antes de iniciar a automação, percorri a aplicação manualmente algumas vezes. Essa exploração foi importante para entender o comportamento real da plataforma, observar particularidades do ambiente e decidir quais cenários realmente agregariam cobertura.
 
@@ -10,24 +10,46 @@ A partir disso, priorizei os testes considerando risco, impacto para o usuário 
 
 ---
 
+## Sumário
+
+- [Estratégia de qualidade](#estratégia-de-qualidade)
+- [Stack utilizada e por quê](#stack-utilizada-e-por-quê)
+- [Cenários automatizados](#cenários-automatizados)
+- [Cenários considerados mais críticos](#cenários-considerados-mais-críticos)
+- [O que decidi não automatizar](#o-que-decidi-não-automatizar)
+- [Achados e pontos de atenção](#achados-e-pontos-de-atenção)
+- [Cenário de investigação](#cenário-de-investigação)
+- [Arquitetura e organização da automação](#arquitetura-e-organização-da-automação)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Instalação e configuração do ambiente](#instalação-e-configuração-do-ambiente)
+- [Execução dos testes](#execução-dos-testes-playwright)
+- [Relatórios e evidências](#relatórios)
+- [CI/CD](#cicd)
+- [Considerações finais](#considerações-finais)
+
+---
+
 ## Estratégia de qualidade
 
-A estratégia começou com testes exploratórios manuais, com o objetivo inicial de entender o fluxo completo:
+A exploração manual cobriu o fluxo inteiro antes de qualquer linha de automação: navegação pela loja, seleção de produto e variações, carrinho, alteração de quantidade, checkout, criação do pedido e consulta posterior em **Meus Pedidos**.
 
-- navegação pela loja;
-- seleção de produto;
-- escolha de variações;
-- carrinho;
-- alteração de quantidade;
-- checkout;
-- criação do pedido;
-- consulta posterior em **Meus Pedidos**.
+Foi nessa etapa que apareceram os comportamentos que mais influenciaram o desenho dos testes — elementos responsivos duplicados no DOM, particularidades na seleção de tamanho e cor, dependência de sessão no carrinho e um comportamento assíncrono perceptível no checkout. Só depois de entender isso a cobertura automatizada foi definida, priorizando risco, impacto para o usuário e relevância para o fluxo de negócio.
 
-Durante essa exploração foram observados alguns comportamentos que influenciaram diretamente a automação, como elementos responsivos duplicados no DOM, particularidades na seleção de tamanho e cor, dependência de sessão e comportamento assíncrono durante o checkout.
+---
 
-Somente depois desse mapeamento foi definida a cobertura automatizada.
+## Stack utilizada e por quê
 
-A intenção não foi criar o maior número possível de testes, mas cobrir os pontos que apresentavam maior risco dentro da jornada proposta.
+| Ferramenta                                                | Papel no projeto                                                                                                                                                                                                                                                                                                           |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Playwright**                                            | Framework de automação E2E. Escolhido pela API de auto-wait (menos flakiness que Selenium em SPAs com carregamento assíncrono), suporte nativo a interceptação de rede — usado para validar a resposta do checkout — e integração direta com TypeScript.                                                                   |
+| **TypeScript**                                            | Tipagem estática nos Page Objects, Flows e dados de teste. Reduz erro de digitação em seletor e nome de propriedade, e deixa o autocomplete do editor guiar quem for dar manutenção depois.                                                                                                                                |
+| **Node.js 20**                                            | Runtime exigido pelo Playwright e pelas ferramentas de tooling (ESLint, Prettier).                                                                                                                                                                                                                                         |
+| **Allure**                                                | Relatório visual dos testes Playwright — histórico de execuções, agrupamento por comportamento (behaviors) e timeline de execução, úteis para comunicar resultado a quem não vai ler código.                                                                                                                               |
+| **K6**                                                    | Smoke test de carga leve em produto e carrinho. Ferramenta separada do Playwright, focada em performance/carga, não em interface.                                                                                                                                                                                          |
+| **ESLint + typescript-eslint + eslint-plugin-playwright** | Lint com verificação de tipos habilitada (`recommendedTypeChecked`) e regras específicas de Playwright, além das genéricas de TypeScript. Pega problemas que o compilador sozinho não vê — por exemplo, uma Promise que não foi aguardada (`no-floating-promises`), o que em teste E2E costuma virar flakiness silenciosa. |
+| **Prettier**                                              | Formatação consistente, sem debate de estilo em code review.                                                                                                                                                                                                                                                               |
+| **GitHub Actions**                                        | CI. Roda formatação, tipos, lint e testes funcionais a cada push/PR; o teste de performance fica separado, sob demanda, porque cada execução gera um pedido real no ambiente.                                                                                                                                              |
+| **dotenv**                                                | Carrega credenciais de teste a partir de `.env`, mantendo dado sensível fora do código versionado.                                                                                                                                                                                                                         |
 
 ---
 
@@ -35,9 +57,7 @@ A intenção não foi criar o maior número possível de testes, mas cobrir os p
 
 ### Login
 
-Valida a autenticação de um cliente cadastrado e confirma que a sessão foi estabelecida corretamente.
-
-Arquivo:
+Autentica um cliente cadastrado e confirma que a sessão foi estabelecida. Esse cenário existe como **pré-condição técnica**, não como cobertura do módulo de autenticação em si: ele garante a base necessária para os fluxos que dependem de sessão, como o checkout completo e a consulta em "Meus Pedidos". Por isso, cenários negativos de login (credenciais inválidas, por exemplo) ficaram fora do escopo — validação de credenciais é uma regra de negócio da autenticação, não do fluxo de compra que o desafio pede.
 
 ```text
 tests/auth/login.spec.ts
@@ -45,7 +65,7 @@ tests/auth/login.spec.ts
 
 ### Fluxo de compra E2E
 
-Cobre a jornada principal solicitada no desafio:
+Cobre a jornada principal do desafio, do início ao fim:
 
 1. autenticação do cliente;
 2. acesso à loja;
@@ -63,39 +83,29 @@ Cobre a jornada principal solicitada no desafio:
 14. validação do pedido em **Meus Pedidos**;
 15. abertura e conferência dos detalhes persistidos.
 
-Arquivo:
-
 ```text
 tests/checkout/purchase-flow.spec.ts
 ```
 
 ### Integração do checkout com o backend
 
-Além da validação visual, o fluxo E2E acompanha a requisição responsável pelo processamento do checkout.
-
-Foi identificada durante a exploração a chamada:
+Além da validação visual, o teste acompanha a requisição responsável pelo processamento do checkout, identificada durante a exploração:
 
 ```text
 POST /?wc-ajax=checkout
 ```
 
-A automação valida que essa integração retorna HTTP `200` e, em seguida, confirma que o pedido foi criado e permaneceu disponível na área do cliente.
-
-Essa cobertura foi adicionada para reduzir o risco de um falso sucesso visual, no qual a interface poderia indicar que a compra terminou enquanto o pedido não foi efetivamente persistido.
+A automação confirma que essa chamada retorna HTTP `200` e que o pedido criado permanece disponível na área do cliente. Sem isso, a interface poderia indicar sucesso enquanto o pedido não foi de fato persistido — um falso positivo que só uma asserção de rede captura.
 
 ### Segurança — controle de acesso ao pedido
 
-Foi criado um cenário adicional para verificar o comportamento de um pedido após o encerramento da sessão.
-
-O teste:
+Verifica o que acontece com um pedido depois que a sessão é encerrada:
 
 1. autentica um cliente;
 2. consulta um pedido existente;
 3. encerra a sessão;
 4. tenta acessar diretamente a URL daquele pedido;
-5. verifica que os detalhes da compra, itens e dados do cliente não ficam disponíveis sem autenticação.
-
-Arquivo:
+5. confirma que detalhes da compra, itens e dados do cliente deixam de estar disponíveis.
 
 ```text
 tests/security/order-access.spec.ts
@@ -103,19 +113,13 @@ tests/security/order-access.spec.ts
 
 ### Performance exploratória do checkout
 
-Também foi medido o intervalo entre a confirmação da compra e a conclusão do processamento do pedido.
-
-Arquivo:
+Mede o intervalo entre a confirmação da compra e a conclusão do processamento, usando **5 segundos** como referência exploratória — não um SLA definido pelo negócio.
 
 ```text
 tests/performance/checkout-performance.spec.ts
 ```
 
-Foi utilizada uma referência exploratória de **5 segundos**.
-
-Esse número **não representa um SLA fornecido pelo negócio**. Ele foi adotado somente como referência para observar o comportamento do checkout.
-
-As execuções realizadas apresentaram tempos próximos entre si:
+As execuções ficaram consistentemente próximas de 8,3 segundos:
 
 ```text
 8.137 ms
@@ -124,31 +128,15 @@ As execuções realizadas apresentaram tempos próximos entre si:
 8.272 ms
 ```
 
-O comportamento ficou, portanto, em torno de **8,3 segundos**.
-
-Isso não foi classificado como defeito. Sem uma regra de negócio, documentação ou SLA que determine qual é o tempo máximo aceitável para concluir uma compra, o resultado deve ser tratado como um **ponto a ser validado com Produto e Engenharia**.
-
-Por esse motivo, a referência de 5 segundos não funciona como quality gate bloqueante no CI. Caso o tempo fique acima dela, o teste registra a informação como warning.
+Sem uma referência oficial de tempo aceitável para concluir uma compra, não classifico isso como defeito — é um ponto para validar com Produto e Engenharia. Por esse motivo, a referência de 5s não bloqueia o CI: quando ultrapassada, o teste registra um warning informativo, sem falhar.
 
 ### Smoke test com K6
 
-Foi realizado também um teste leve de carga com K6 em duas etapas importantes anteriores ao checkout:
-
-- página de produto;
-- carrinho.
-
-Configuração utilizada:
+Teste leve de carga em duas etapas anteriores ao checkout — produto e carrinho:
 
 ```text
-2 usuários virtuais
-10 segundos
-```
-
-Thresholds utilizados:
-
-```text
-taxa de erro < 1%
-p95 < 2 segundos
+2 usuários virtuais, 10 segundos
+Thresholds: taxa de erro < 1% | p95 < 2 segundos
 ```
 
 Resultado observado:
@@ -157,292 +145,119 @@ Resultado observado:
 20 requisições
 20 checks aprovados
 0% de falhas
-p95: 929,53 ms
-média: 512,44 ms
+p95: 929,53 ms | média: 512,44 ms
 ```
 
-O resultado indica comportamento estável sob carga leve nos pontos avaliados.
-
-Esse cenário deve ser entendido como **smoke test de performance**, e não como teste de capacidade, stress ou volume.
-
-Arquivo:
+Comportamento estável sob carga leve nos pontos avaliados. Vale reforçar: isso é um **smoke test de performance**, não teste de capacidade, stress ou volume — a proposta é detectar regressão grosseira, não caracterizar limites do sistema.
 
 ```text
 tests/k6/smoke-test.js
+```
+
+Por padrão, o smoke test aponta para o ambiente da EBAC Shop. Para rodar contra outro ambiente:
+
+```bash
+k6 run -e BASE_URL=http://outro-ambiente.com tests/k6/smoke-test.js
 ```
 
 ---
 
 ## Cenários considerados mais críticos
 
-### Finalização do checkout
+**Finalização do checkout** — é o ponto em que a intenção de compra vira, de fato, um pedido. Uma falha aqui pode custar a venda, gerar inconsistência de dados ou dar ao cliente uma falsa sensação de sucesso. Por isso recebeu cobertura funcional, de integração e de performance.
 
-É o ponto em que a intenção de compra se transforma efetivamente em um pedido.
+**Alteração de quantidade e recálculo** — quantidade e valor estão diretamente ligados à cobrança. Um erro de recálculo tem impacto financeiro direto, tanto para o cliente quanto para a empresa.
 
-Uma falha nessa etapa pode gerar perda da venda, inconsistência de dados, duplicidade ou uma percepção incorreta de sucesso para o cliente. Por esse motivo, o checkout recebeu cobertura funcional, de integração e de performance.
+**Persistência do pedido** — validar só a mensagem "Pedido recebido" não me pareceu suficiente. O teste confirma que o pedido continua disponível depois, em "Meus Pedidos", e que seus detalhes podem ser consultados.
 
-### Alteração da quantidade e recálculo
-
-Quantidade e valor estão diretamente ligados à cobrança.
-
-Uma inconsistência entre quantidade, subtotal e total pode gerar impacto financeiro tanto para o cliente quanto para a empresa.
-
-### Persistência do pedido
-
-Não considerei suficiente validar apenas a mensagem de **Pedido recebido**.
-
-O fluxo também verifica se o pedido permanece disponível posteriormente em **Meus Pedidos** e se os seus detalhes podem ser consultados.
-
-### Controle de acesso
-
-Pedidos carregam informações de compra e dados pessoais.
-
-Por isso, foi incluído um cenário específico para verificar que essas informações não continuam acessíveis após o logout.
+**Controle de acesso** — um pedido carrega dados de compra e dados pessoais. Por isso existe um cenário dedicado a confirmar que essas informações somem da tela depois do logout.
 
 ---
 
 ## O que decidi não automatizar
 
-Nem todo cenário possível foi transformado em automação. Algumas decisões foram intencionais.
+Nem tudo que dava pra testar virou automação — algumas decisões foram intencionais, e explico o porquê de cada uma.
 
-### Compra com dois produtos diferentes
+**Compra com dois produtos diferentes.** O comportamento crítico de carrinho já é exercitado com um produto só: inclusão, variação, quantidade, subtotal, total e checkout. Um segundo produto aumentaria o tempo de execução sem reduzir de forma relevante a incerteza sobre o fluxo obrigatório. Faria sentido incluir se existissem regras específicas de promoção, frete ou estoque combinando itens — o que não é o caso aqui.
 
-Não foi criado um cenário com dois produtos diferentes porque, dentro do objetivo deste desafio, isso não adicionaria uma nova regra relevante ao fluxo principal.
+**Matriz completa de tamanho e cor.** Usei uma combinação válida representativa. Não identifiquei, na exploração manual, nenhuma regra que mudasse entre tamanhos ou cores diferentes — se existisse (preço ou disponibilidade variando por variação, por exemplo), aí sim valeria parametrizar.
 
-O comportamento crítico de carrinho já é exercitado com:
+**Todos os meios de pagamento.** Explorei os métodos disponíveis manualmente, mas para a automação principal priorizei "Pagamento na entrega", por ser o único que permite finalizar a jornada de forma previsível nesse ambiente. Os demais são candidatos naturais para regressão, caso surjam regras de negócio ou integrações específicas por método.
 
-- inclusão de produto;
-- variação;
-- quantidade;
-- subtotal;
-- total;
-- checkout.
+**Carga agressiva no checkout.** Cada finalização de compra gera um pedido real — rodar carga pesada nessa etapa poluiria a base de dados do ambiente compartilhado sem necessidade. Por isso a carga do K6 ficou restrita a produto e carrinho, que não têm esse efeito colateral.
 
-Adicionar outro produto aumentaria o tempo e a complexidade da execução sem reduzir de forma significativa a incerteza sobre o fluxo obrigatório.
-
-Em um produto real, esse cenário poderia ser incluído caso existissem regras específicas envolvendo promoções, frete, estoque ou combinação de itens.
-
-### Muitas combinações de tamanho e cor
-
-Foi utilizada uma combinação válida representativa. Não foi criada uma matriz completa de tamanhos e cores porque não foram identificadas regras diferentes entre essas combinações.
-
-Caso preço, disponibilidade ou comportamento variassem de acordo com tamanho/cor, essa cobertura poderia ser parametrizada.
-
-### Todos os meios de pagamento
-
-Os métodos disponíveis foram explorados durante os testes manuais.
-
-Para o fluxo automatizado principal, foi priorizado **Pagamento na entrega**, por permitir finalizar a jornada de maneira previsível no ambiente.
-
-Os demais métodos continuam sendo candidatos naturais para regressão caso existam regras específicas de negócio ou integrações diferentes.
-
-### Carga agressiva no checkout
-
-Não foi executado teste de carga pesada sobre a finalização da compra, porque cada conclusão gera um pedido real. Executar dezenas ou centenas de compras artificialmente poderia poluir os dados e até prejudicar a utilização do ambiente.
-
-Por isso, a carga foi aplicada de maneira leve em produto e carrinho.
-
-### Concorrência e duplicidade de pedidos
-
-Foi considerado um cenário envolvendo finalizações simultâneas da mesma compra.
-
-Ele poderia ser interessante para investigar idempotência e possibilidade de pedidos duplicados.
-
-Não foi executado porque criaria efeitos colaterais reais no ambiente compartilhado, mas em um ambiente controlado, considero esse um cenário relevante.
+**Concorrência e duplicidade de pedidos.** Cheguei a considerar um cenário de finalizações simultâneas da mesma compra, interessante para investigar idempotência. Não executei porque geraria efeitos colaterais reais no ambiente compartilhado — mas num ambiente controlado, esse é um teste que eu recomendaria.
 
 ---
 
 ## Achados e pontos de atenção
 
-### Checkout com tempo próximo de 8 segundos
+**Checkout perto de 8 segundos.** O tempo de processamento ficou consistente em torno de 8,3s nas execuções. Sem SLA documentado, não trato isso como bug — mas registro como ponto a confirmar com Produto: existe uma expectativa de experiência para essa etapa? Há requisito não funcional documentado em algum lugar? Se o tempo importa, vale investigar em qual parte do processamento ele se concentra.
 
-As execuções apresentaram comportamento consistente próximo de 8,3 segundos.
+**Navegação rápida, transação lenta.** O K6 mediu p95 abaixo de 1 segundo em produto e carrinho sob carga leve, enquanto o checkout ficou perto de 8s. Isso sugere que a etapa transacional tem um comportamento diferente da navegação comum — não dá pra concluir a causa só com esses testes, mas seria o primeiro ponto que eu investigaria numa análise de performance mais profunda.
 
-Como não foi disponibilizado SLA para essa operação, não considero correto classificar o comportamento como bug somente porque ultrapassou a referência exploratória de 5 segundos.
+**Ambiente em HTTP.** A inspeção pelo Network mostrou que o ambiente trafega dados do checkout sem TLS. Num ambiente de produção real, dado pessoal e credencial deveriam estar protegidos em trânsito. Como este é um ambiente de teste, registro isso como risco potencial documentado, não como vulnerabilidade de produção confirmada.
 
-Sugestões:
+**Elementos duplicados no DOM.** As versões responsivas do layout coexistem no DOM — algumas visíveis, outras ocultas. Isso exigiu seletores mais específicos para a automação não interagir com componentes que o usuário não está de fato vendo. Ficaria bom rever a semântica desses componentes duplicados no front-end.
 
-- confirmar com Produto qual experiência é esperada;
-- verificar se existe SLA ou requisito não funcional documentado;
-- observar métricas do processamento;
-- caso necessário, investigar em qual etapa está concentrado o tempo.
+**Estado das variações de produto não é confiável via atributo.** Os componentes de tamanho e cor não refletem de forma consistente o estado selecionado via `aria-checked` ou classe CSS — por isso a automação passou a validar o valor efetivamente enviado no formulário, não o estado visual do componente. Isso também é um sinal de acessibilidade que vale revisar.
 
-### Diferença entre navegação e processamento transacional
-
-O K6 apresentou p95 inferior a 1 segundo em produto e carrinho sob carga leve, enquanto a conclusão do checkout ficou próxima de 8 segundos.
-
-Isso sugere que a navegação básica apresenta comportamento diferente da etapa transacional.
-
-Não é possível concluir a causa apenas com esses testes, mas o checkout seria o primeiro ponto que eu aprofundaria em uma investigação de performance.
-
-### Aplicação utilizando HTTP
-
-Durante a exploração pelo Network foi observado que o ambiente utiliza:
-
-```text
-http://
-```
-
-e que informações do checkout trafegam na requisição da transação.
-
-Em um ambiente real, dados pessoais e credenciais devem estar protegidos durante o transporte por HTTPS/TLS.
-
-Como este é um ambiente fornecido especificamente para testes, registro esse ponto como **risco potencial**, e não como vulnerabilidade de produção confirmada.
-
-### Elementos duplicados no DOM
-
-Durante a automação foram encontrados elementos equivalentes das versões responsivas do layout coexistindo no DOM. Alguns estavam visíveis e outros ocultos. Isso exigiu seletores mais específicos para evitar que a automação interagisse com componentes que não representavam a interface apresentada ao usuário.
-
-Como melhoria, seria interessante revisar a semântica desses componentes e garantir diferenciação adequada dos elementos inativos.
-
-### Estado das variações de produto
-
-Os componentes visuais de tamanho e cor não refletiram de maneira confiável o estado selecionado por atributos como `aria-checked` ou por classes CSS.
-
-A automação passou a validar o valor efetivamente utilizado pelo formulário.
-
-Além do impacto na testabilidade, considero válido avaliar esse comportamento também sob a ótica de acessibilidade.
-
-### Compra sem autenticação
-
-Durante os testes exploratórios foi observado que a plataforma também permite concluir uma compra sem um usuário autenticado.
-
-Esse comportamento não representa necessariamente um problema: muitas plataformas permitem checkout como convidado.
-
-Entretanto, como existe uma área autenticada chamada **Meus Pedidos**, considero importante que esteja clara a regra de associação entre:
-
-```text
-pedido de convidado
-      ↓
-conta do cliente
-      ↓
-histórico de pedidos
-```
-
-Caso um cliente finalize uma compra como convidado e posteriormente acesse uma conta, é importante que Produto defina claramente se aquele pedido deve ou não aparecer no histórico.
+**Compra sem autenticação é permitida.** Não é necessariamente um problema — checkout como convidado é comum em e-commerce. Mas como existe uma área autenticada de pedidos, fica em aberto uma regra que Produto precisaria definir: se um cliente compra como convidado e depois cria (ou acessa) uma conta, esse pedido deveria aparecer no histórico?
 
 ---
 
 ## Cenário de investigação
 
-### “Às vezes, o cliente paga, mas o pedido não aparece em Meus Pedidos.”
+### "Às vezes, o cliente paga, mas o pedido não aparece em Meus Pedidos"
 
-Como não haveria acesso ao código-fonte, eu começaria buscando contexto. Verificaria se existe documentação funcional ou técnica daquele fluxo, histórico de incidentes semelhantes, bugs já reportados e possíveis correções anteriores.
+**Primeira ação:** buscar contexto antes de qualquer teste. Verificaria se existe documentação funcional ou técnica desse fluxo, histórico de incidentes semelhantes e bugs já reportados (e resolvidos) com essa mesma natureza. Se houver, isso já me dá uma resposta antecipada — ou pelo menos reduz o espaço de hipóteses antes de eu gastar tempo reproduzindo o problema do zero.
 
-Então eu reproduziria uma compra ponta a ponta acompanhando a execução pelo Network e registraria, para a mesma tentativa:
+Então eu reproduziria a compra ponta a ponta, acompanhando a aba Network e registrando, para a mesma transação: usuário, horário, método de pagamento, resposta HTTP do checkout e o identificador de pedido retornado pela interface. Sem acesso ao código-fonte, esse é o jeito mais rápido de conseguir um sinal objetivo de onde o estado deixa de ser consistente, em vez de investigar várias hipóteses em paralelo sem dado nenhum.
 
-- usuário;
-- horário aproximado;
-- método de pagamento;
-- resposta da requisição de checkout;
-- número ou identificador retornado para o pedido;
-- comportamento apresentado pela interface.
+**Hipótese inicial:** o problema está em algum ponto entre a confirmação do checkout e a exibição em "Meus Pedidos" — não necessariamente na cobrança em si. Durante a exploração deste desafio, identifiquei uma variável relevante: o ambiente permite finalizar compras como convidado. Isso levanta a primeira pergunta a confirmar com Produto: **o cliente estava autenticado no momento da compra, ou o pedido foi feito como convidado e depois associado (ou não) à conta?**
 
-Durante a exploração deste desafio validei tanto o comportamento de um usuário autenticado quanto o de um usuário deslogado. No fluxo autenticado, o pedido criado permaneceu disponível posteriormente em **Meus Pedidos**.
+**Redução de incerteza:** em vez de investigar todo o funil de uma vez, prefiro isolar o dado mais específico primeiro — a existência (ou não) do pedido no backend — e usar isso pra decidir a direção certa:
 
-Também observei que a aplicação permite realizar compras sem autenticação. Nesse caso, naturalmente não existe uma área autenticada de pedidos disponível imediatamente para aquele usuário.
+| Sintoma confirmado                                      | Direção da investigação                                                                  |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Checkout retornou sucesso, mas não há pedido no backend | Logs de criação/persistência: erro de banco, timeout, falha de integração                |
+| Pedido existe no backend, mas não aparece na listagem   | Query do histórico, associação pedido↔usuário, sessão, cache, processamento assíncrono   |
+| Pedido foi criado como convidado                        | Regra de associação entre pedido de convidado e conta cadastrada — a definir com Produto |
+| Pedido aparece depois de um tempo                       | Indício de processamento assíncrono ou consistência eventual                             |
+| Comportamento varia por meio de pagamento               | Isolar a investigação por integração/gateway                                             |
 
-Isso adicionaria uma pergunta importante à investigação: **O cliente estava autenticado no momento em que concluiu a compra?**
-
-Mesmo que ele posteriormente entre em sua conta e diga que o pedido não está em **Meus Pedidos**, seria necessário confirmar se aquela compra foi realizada dentro da mesma sessão autenticada ou como convidado.
-
-Depois dessa primeira análise, eu levaria as evidências para Produto e Backend.
-
-Minha próxima pergunta seria: **O pedido chegou a ser persistido?**
-
-A partir daí, a investigação ficaria mais direcionada.
-
-#### O checkout retornou sucesso, mas não existe pedido no backend
-
-O foco passa a ser criação ou persistência do pedido, então eu investigaria logs do mesmo intervalo, erros de banco, timeout ou falhas de integração.
-
-#### O pedido existe no backend, mas não aparece em Meus Pedidos
-
-O problema provavelmente está depois da persistência.
-
-Eu investigaria:
-
-- consulta utilizada pelo histórico;
-- associação do pedido com o usuário;
-- sessão;
-- cache;
-- sincronização;
-- regras de exibição;
-- eventual processamento assíncrono.
-
-#### O pedido foi criado como convidado
-
-Eu confirmaria com Produto qual é a regra esperada para associação posterior entre pedidos de convidados e contas cadastradas.
-
-#### O pedido aparece depois de algum tempo
-
-Isso aumentaria a hipótese de processamento assíncrono ou consistência eventual.
-
-#### O comportamento varia conforme o meio de pagamento
-
-Eu passaria a separar a investigação por integração.
-
-Minha hipótese inicial seria, portanto, uma inconsistência em algum ponto entre:
-
-```text
-conclusão do checkout
-        ↓
-persistência
-        ↓
-associação com o cliente
-        ↓
-consulta em Meus Pedidos
-```
-
-A forma mais rápida de reduzir a incerteza seria acompanhar a mesma transação desde a requisição do checkout até a verificação de sua existência no backend.
-
-Em vez de investigar todas as possibilidades ao mesmo tempo, eu tentaria primeiro descobrir **em qual etapa o estado deixa de ser consistente**.
+Essa tabela funciona como um filtro: um único dado concreto (o pedido existe no backend ou não) já elimina metade das hipóteses, em vez de eu precisar checar tudo ao mesmo tempo.
 
 ---
 
 ## Sugestões de melhoria
 
-A partir da exploração e dos testes realizados, alguns pontos poderiam ajudar a evoluir a qualidade do produto:
+Essas sugestões se aplicam em caso de ambiente real.
 
 - definir um SLA ou referência oficial para o tempo de processamento do checkout;
-- disponibilizar métricas de latência e erro do checkout;
-- melhorar a rastreabilidade entre a requisição de compra e o pedido persistido;
-- utilizar identificadores de correlação entre frontend e backend;
-- documentar claramente a regra de pedidos realizados como convidado;
-- revisar atributos de acessibilidade dos componentes de variação;
-- utilizar HTTPS/TLS em ambientes que manipulem dados reais;
-- disponibilizar ambiente ou massa própria para testes de carga;
-
----
-
-## Stack utilizada
-
-- Playwright
-- TypeScript
-- Node.js
-- K6
-- Allure
-- GitHub Actions
-- dotenv
+- disponibilizar métricas de latência e erro do checkout para observabilidade;
+- melhorar a rastreabilidade entre a requisição de compra e o pedido persistido, com identificador de correlação entre frontend e backend;
+- documentar a regra de associação de pedidos feitos como convidado;
+- revisar atributos de acessibilidade dos componentes de variação (tamanho/cor);
+- usar HTTPS/TLS em ambientes que manipulem dado real;
+- disponibilizar ambiente ou massa de dados própria para testes de carga, sem o risco de poluir dados reais.
 
 ---
 
 ## Arquitetura e organização da automação
 
-A estrutura foi organizada para separar responsabilidades e reduzir duplicação.
+A estrutura separa responsabilidades pra reduzir duplicação e manter os testes legíveis:
 
-Foi utilizado **Page Object Model (POM)** para concentrar as interações e asserções relacionadas às páginas. Sobre essa base, foram adicionadas camadas menores e reutilizáveis:
+- **`pages/`** — interação com a página e asserções específicas de interface (Page Object Model);
+- **`flows/`** — sequências reutilizáveis de negócio: autenticação, preparação de carrinho, seleção de produto, preparação de checkout;
+- **`fixtures/`** — injeta Page Objects e Flows nos testes via fixture do Playwright, sem instanciação manual repetida;
+- **`helpers/`** — utilidades técnicas isoladas, como formatação de moeda (`currency.helper.ts`) e contagem de itens (`item-count.helper.ts`);
+- **`data/`** — massa de teste: cliente, produto, método de pagamento;
+- **`tests/`** — os cenários em si, com os passos de negócio e as asserções que fazem sentido ficar visíveis no teste.
 
-- `pages/`: interação com as páginas e validações específicas da interface;
-- `flows/`: sequências reutilizáveis de negócio, como autenticação, preparação do carrinho, seleção do produto e preparação do checkout;
-- `fixtures/`: disponibilização dos Page Objects e Flows aos testes sem necessidade de instanciação repetida;
-- `helpers/`: utilidades técnicas independentes, como formatação de valores em BRL;
-- `data/`: massa e dados utilizados pelos cenários, incluindo cliente, produto e método de pagamento;
-- `tests/`: cenários, passos de negócio e asserções que devem permanecer explícitas no teste.
+A ideia por trás dessa separação: o teste E2E não precisa saber como o login funciona por dentro, ou como o carrinho é esvaziado — mas continua deixando explícitas as validações que importam pro cenário, como a checagem do status HTTP do checkout.
 
-A intenção dessa separação foi manter os testes legíveis e facilitar manutenção. Por exemplo, o teste E2E não precisa conhecer os detalhes de autenticação ou de limpeza do carrinho, mas continua deixando visíveis as validações críticas do checkout, como a observação da requisição `POST /?wc-ajax=checkout` e a confirmação do status HTTP.
-
-Também foram adicionadas **tags** para permitir execução seletiva dos testes Playwright:
+Tags foram adicionadas para permitir execução seletiva:
 
 ```text
 @smoke @auth
@@ -451,7 +266,11 @@ Também foram adicionadas **tags** para permitir execução seletiva dos testes 
 @performance
 ```
 
-O uso de `storageState` e de um `beforeEach` global foi considerado, mas não adotado neste contexto. Durante a exploração, o ambiente demonstrou persistência de estado associada ao usuário, especialmente no carrinho. Por isso, foi priorizada a preparação explícita das pré-condições necessárias a cada cenário, preservando previsibilidade e isolamento.
+Considerei usar `storageState` com um `beforeEach` global para pular o login em todo teste, mas descartei essa ideia neste contexto: o ambiente demonstrou manter estado associado ao usuário entre sessões (principalmente no carrinho), então preferi preparar cada pré-condição de forma explícita em vez de compartilhar estado entre testes — isso custa um pouco mais de tempo de execução, mas garante isolamento e previsibilidade.
+
+### Qualidade de código
+
+Além de Prettier e verificação de tipos (`tsc --noEmit`), o projeto usa ESLint com regras que analisam tipo (`typescript-eslint` no modo `recommendedTypeChecked`) e regras específicas de Playwright (`eslint-plugin-playwright`). Os poucos warnings que fazem sentido manter — como o uso de `{ force: true }` em seletores com DOM duplicado, ou a ausência de asserção direta em testes que delegam a validação para a camada de `flow` — foram suprimidos linha a linha, com o motivo documentado no comentário ao lado. Nenhuma regra foi silenciada globalmente.
 
 ---
 
@@ -478,7 +297,8 @@ O uso de `storageState` e de um `beforeEach` global foi considerado, mas não ad
 │   └── product.flow.ts
 │
 ├── helpers/
-│   └── currency.helper.ts
+│   ├── currency.helper.ts
+│   └── item-count.helper.ts
 │
 ├── pages/
 │   ├── cart.page.ts
@@ -502,6 +322,7 @@ O uso de `storageState` e de um `beforeEach` global foi considerado, mas não ad
 │       └── smoke-test.js
 │
 ├── .env.example
+├── eslint.config.mjs
 ├── playwright.config.ts
 ├── package.json
 └── tsconfig.json
@@ -511,27 +332,20 @@ O uso de `storageState` e de um `beforeEach` global foi considerado, mas não ad
 
 ## Instalação e configuração do ambiente
 
-As instruções abaixo consideram todas as ferramentas utilizadas na solução. Para executar apenas os testes funcionais com Playwright, Java e K6 não são obrigatórios; eles são necessários para o relatório Allure e para o smoke test de performance, respectivamente.
+As instruções abaixo cobrem todas as ferramentas usadas. Pra rodar só os testes funcionais com Playwright, Java e K6 não são obrigatórios — eles entram em cena apenas para o relatório Allure e o smoke test de performance, respectivamente.
 
 ### Pré-requisitos
-
-Antes de executar o projeto, é necessário ter instalado:
 
 - Git;
 - Node.js 20 ou superior;
 - npm;
-- Java, para geração do relatório Allure;
-- K6, para execução do smoke test de performance.
+- Java, para o relatório Allure;
+- K6, para o smoke test de performance.
 
 ### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/RoxaneNayara/ebac-shop-qa-challenge.git
-```
-
-Acesse a pasta do projeto:
-
-```bash
 cd ebac-shop-qa-challenge
 ```
 
@@ -541,15 +355,15 @@ cd ebac-shop-qa-challenge
 npm ci
 ```
 
-Esse comando instala as dependências definidas no `package-lock.json`, incluindo Playwright, TypeScript, Allure, dotenv e Prettier.
+Instala tudo que está travado no `package-lock.json`: Playwright, TypeScript, ESLint, Prettier, Allure e dotenv.
 
-### 3. Instalar o Chromium utilizado pelo Playwright
+### 3. Instalar o Chromium do Playwright
 
 ```bash
 npx playwright install chromium
 ```
 
-Em ambientes Linux ou CI, caso seja necessário instalar também as dependências do navegador:
+Em Linux ou CI, se faltar dependência do sistema para o navegador:
 
 ```bash
 npx playwright install --with-deps chromium
@@ -557,45 +371,29 @@ npx playwright install --with-deps chromium
 
 ### 4. Configurar as variáveis de ambiente
 
-Crie o arquivo `.env` a partir do modelo disponível no projeto:
-
 ```bash
 cp .env.example .env
 ```
 
-Preencha as variáveis com os dados do usuário utilizado nos testes.
-
-> O arquivo `.env` contém dados sensíveis, não é versionado e está protegido pelo `.gitignore`.
+Preencha com os dados do usuário de teste. O `.env` não é versionado — está no `.gitignore` — porque contém dados sensíveis, mesmo sendo credenciais de um ambiente de teste, não de produção.
 
 ---
 
 ## Execução dos testes Playwright
 
-### Executar toda a suíte
+**Suíte inteira** (inclui a performance exploratória, que gera um pedido real):
 
 ```bash
 npm test
 ```
 
-ou:
-
-```bash
-npx playwright test --project=chromium
-```
-
-Essa execução inclui o cenário exploratório de performance do checkout, que gera um pedido real.
-
-### Executar a suíte funcional e de segurança
+**Suíte funcional e de segurança** — é a que roda automaticamente no CI:
 
 ```bash
 npx playwright test --project=chromium --grep-invert @performance
 ```
 
-Essa é a suíte utilizada automaticamente no CI.
-
-### Execução seletiva por tags
-
-Os testes Playwright podem ser filtrados pelas tags adicionadas aos cenários:
+**Por tag:**
 
 ```bash
 npx playwright test --grep @smoke
@@ -605,55 +403,31 @@ npx playwright test --grep @security
 npx playwright test --grep @performance
 ```
 
-Também é possível apenas listar os testes de uma categoria, sem executá-los:
+Listar sem executar:
 
 ```bash
 npx playwright test --list --grep @security
 ```
 
-### Executar com navegador visível
+**Outros modos:**
 
 ```bash
-npm run test:headed
+npm run test:headed   # navegador visível
+npm run test:ui        # UI mode do Playwright
+npm run test:debug     # modo debug
+npm run test:login     # só o login
+npm run test:purchase  # só o fluxo de compra E2E
+npm run test:k6        # smoke test de carga (K6, fora do Playwright)
 ```
 
-### Executar no modo UI
-
-```bash
-npm run test:ui
-```
-
-### Executar em modo debug
-
-```bash
-npm run test:debug
-```
-
-### Executar apenas o login
-
-```bash
-npm run test:login
-```
-
-### Executar apenas o fluxo de compra E2E
-
-```bash
-npm run test:purchase
-```
-
-### Executar apenas o teste de segurança
+**Segurança e performance isoladamente:**
 
 ```bash
 npx playwright test tests/security/order-access.spec.ts --project=chromium
-```
-
-### Executar apenas a performance exploratória do checkout
-
-```bash
 npx playwright test tests/performance/checkout-performance.spec.ts --project=chromium
 ```
 
-> O limite de 5 segundos utilizado nesse cenário é uma referência exploratória e não um SLA oficial do produto. Por isso, ultrapassar essa referência gera um warning, mas não bloqueia a execução.
+O limite de 5s usado no teste de performance é referência exploratória, não SLA — ultrapassar gera warning, não falha o teste.
 
 ---
 
@@ -661,13 +435,11 @@ npx playwright test tests/performance/checkout-performance.spec.ts --project=chr
 
 ### Relatório HTML do Playwright
 
-Após a execução dos testes:
-
 ```bash
 npm run report
 ```
 
-ou:
+ou
 
 ```bash
 npx playwright show-report
@@ -675,172 +447,103 @@ npx playwright show-report
 
 ### Relatório Allure
 
-O projeto utiliza `allure-playwright` e `allure-commandline`.
-
-O Allure Commandline depende de Java. No macOS com Homebrew:
+Depende de Java. No macOS com Homebrew:
 
 ```bash
 brew install openjdk
 ```
 
-Se o Java não for reconhecido pelo sistema, crie o vínculo recomendado pelo Homebrew:
+Se o sistema não reconhecer o Java depois de instalado:
 
 ```bash
 sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-```
-
-Confirme a instalação:
-
-```bash
 java -version
 ```
 
-Para gerar uma evidência limpa, remova resultados anteriores:
+Gerar evidência limpa (remove resultados anteriores):
 
 ```bash
 rm -rf allure-results allure-report
-```
-
-Execute os testes desejados e gere o relatório:
-
-```bash
 npx playwright test --project=chromium
 npm run allure:generate
-```
-
-Abra o relatório:
-
-```bash
 npm run allure:open
 ```
 
-Também é possível gerar e abrir temporariamente o relatório diretamente a partir dos resultados:
+Ou gerar e abrir direto a partir dos resultados, sem etapa intermediária:
 
 ```bash
 npm run allure:serve
 ```
 
----
+> O Allure cobre os testes Playwright (login, compra E2E, segurança). O smoke test do K6 não aparece nesse relatório — é uma ferramenta independente, com seu próprio formato de saída — e sua evidência fica no output do terminal, documentado na seção de evidências abaixo.
 
-## Smoke test com K6
-
-O K6 foi utilizado em um teste leve de performance nas páginas de produto e carrinho.
-
-### Instalação no macOS
+### Smoke test com K6
 
 ```bash
 brew install k6
-```
-
-Confirme a instalação:
-
-```bash
 k6 version
 ```
-
-### Execução
-
-O cenário pode ser executado pelo script do projeto:
 
 ```bash
 npm run test:k6
 ```
 
-ou diretamente pelo K6:
+ou
 
 ```bash
 k6 run tests/k6/smoke-test.js
 ```
 
-O cenário utiliza carga leve e thresholds para acompanhar tempo de resposta e taxa de falhas. Ele não realiza checkout e não cria pedidos.
+Não realiza checkout nem cria pedidos — só mede tempo de resposta e taxa de falha em produto e carrinho.
 
----
-
-## Validações de qualidade do código
-
-### Verificar formatação
+### Validações de qualidade de código
 
 ```bash
-npx prettier --check .
-```
-
-### Aplicar formatação
-
-```bash
-npx prettier --write .
-```
-
-### Validar TypeScript
-
-```bash
-npx tsc --noEmit
-```
-
-### Listar os testes disponíveis
-
-```bash
-npx playwright test --list
+npx prettier --check .   # verificar formatação
+npx prettier --write .   # aplicar formatação
+npx tsc --noEmit         # checar tipos
+npm run lint             # ESLint (typescript-eslint + eslint-plugin-playwright)
+npx playwright test --list  # listar os testes disponíveis
 ```
 
 ---
 
 ## CI/CD
 
-O projeto utiliza GitHub Actions por meio do workflow:
+Workflow em `.github/workflows/playwright.yml`. A cada `push` e `pull_request` na `main`, o pipeline roda, em ordem:
 
-```text
-.github/workflows/playwright.yml
-```
+1. instalação de dependências e do Chromium;
+2. verificação de formatação (Prettier);
+3. checagem de tipos (`tsc`);
+4. lint (ESLint);
+5. testes funcionais, incluindo o fluxo E2E completo e o de segurança;
+6. upload do relatório do Playwright como artefato.
 
-Em `push` e `pull_request` para a branch `main`, o pipeline executa:
+Cada etapa bloqueia a seguinte — se a formatação falha, o pipeline para ali, antes mesmo de rodar teste.
 
-- instalação das dependências;
-- instalação do Chromium;
-- validação do Prettier;
-- validação do TypeScript;
-- testes funcionais;
-- fluxo E2E;
-- teste de segurança;
-- upload do relatório do Playwright como artefato.
+O teste de performance do checkout fica fora dessa esteira automática porque, ao validar a jornada completa, ele cria um pedido a cada execução — rodá-lo em todo push geraria pedidos desnecessários no ambiente. Ele roda separadamente, sob demanda, via `workflow_dispatch`.
 
-O cenário exploratório de performance do checkout não roda automaticamente em todo `push`, pois cada execução cria um pedido.
-
-O fluxo E2E principal continua fazendo parte da execução automática e, por validar a jornada completa, cria um pedido por execução do pipeline. O cenário de performance fica separado para evitar a criação de um segundo pedido a cada `push`.
-
-Ele é executado separadamente por meio de `workflow_dispatch`, evitando gerar massa de pedidos desnecessária no ambiente.
-
-As credenciais utilizadas no GitHub Actions devem ser cadastradas em **Repository Secrets** e nunca adicionadas ao código ou ao repositório.
+Credenciais usadas no GitHub Actions ficam em **Repository Secrets**, nunca no código.
 
 ---
 
 ## Evidências
 
-A execução gera um relatório HTML do Playwright e artefatos no GitHub Actions.
+### Execução automatizada — Relatório Allure
 
-Também foram utilizados durante a análise:
+- [Overview](./docs/evidences/allure/Allure-overview.png)
+- [Behaviors](./docs/evidences/allure/Allure-behaviors.png)
+- [Suites](./docs/evidences/allure/Allure-suites.png)
+- [Graphs](./docs/evidences/allure/Allure-graphs.png)
+- [Timeline](./docs/evidences/allure/Allure-timeline.png)
+- [Packages](./docs/evidences/allure/Allure-packages.png)
 
-- logs do Playwright;
-- inspeção de requisições pelo Network;
-- relatório Allure;
-- resultado do K6;
-- anotações de performance no Playwright.
+### Vídeos da execução
 
-As evidências abaixo foram registradas durante a execução dos testes e a investigação manual do fluxo.
+- [▶️ Suíte funcional Playwright (login, compra E2E, segurança)](./docs/evidences/video/ebac-shop-qa-challenge-evidencia-e2e.mov)
+- [▶️ Smoke test K6](./docs/evidences/video/ebac-shop-qa-challenge-evidencia-k6.mov)
 
-### Execução automatizada
-
-- Relatórios Allure:
-  - [Overview](./docs/evidences/allure/Allure-overview.png)
-  - [Behaviors](./docs/evidences/allure/Allure-behaviors.png)
-  - [Suites](./docs/evidences/allure/Allure-suites.png)
-  - [Graphs](./docs/evidences/allure/Allure-graphs.png)
-  - [Timeline](./docs/evidences/allure/Allure-timeline.png)
-
-### Vídeo da execução
-
-[▶️ Assistir à execução dos testes](./docs/evidences/video/ebac-shop-qa-challenge-evidencia.mov)
-
-### Evidências dos achados
+### Achados
 
 - [Performance do checkout](./docs/evidences/achados/01_checkout_performance_warning.png)
 - [Smoke test com K6](./docs/evidences/achados/02_k6_smoke_result.png)
@@ -854,10 +557,6 @@ As evidências abaixo foram registradas durante a execução dos testes e a inve
 
 ## Considerações finais
 
-O objetivo desta solução foi cobrir o fluxo de checkout automatizando apenas os cenários interessantes para esse projeto.
+A proposta aqui foi cobrir o fluxo de checkout automatizando o que realmente agregava sinal, não o máximo de cenários possível. A exploração manual veio primeiro — entender o produto e onde estavam os riscos — e a automação foi construída em cima disso, mirando os pontos de maior impacto na jornada de compra.
 
-A exploração manual foi usada para entender primeiro o produto e os riscos. A automação veio depois, direcionada para os pontos que poderiam gerar maior impacto na jornada de compra.
-
-Alguns resultados encontrados são evidências objetivas; outros são sinais que precisariam ser confrontados com regras de negócio, documentação e observabilidade do sistema antes de serem classificados como defeitos.
-
-Essa distinção foi mantida ao longo da análise porque qualidade não é apenas identificar quando algo falha — é também saber qual pergunta precisa ser respondida antes de concluir que existe um problema.
+Alguns achados são evidência objetiva de comportamento; outros são sinais que ainda precisam ser confrontados com regra de negócio, documentação ou observabilidade antes de virarem defeito confirmado. Mantive essa distinção clara ao longo do documento porque, pra mim, qualidade não é só detectar quando algo falha — é saber qual pergunta ainda falta responder antes de dizer que existe um problema.
