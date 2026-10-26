@@ -1,7 +1,7 @@
 {
   "name": "ebac-shop-qa-challenge",
   "version": "1.0.0",
-  "description": "Automação de testes E2E para o fluxo de checkout da EBAC Shop com Playwright, TypeScript e Allure.",
+  "description": "Projeto técnico de QA com automação E2E, segurança, integração, performance e CI/CD na EBAC Shop usando Playwright e TypeScript.",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
